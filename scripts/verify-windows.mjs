@@ -50,6 +50,30 @@ function offset(rva) {
   throw new Error('PE data directory does not map to a section.');
 }
 function cstring(start) {const end=executable.indexOf(0,start);assert(end>start);return executable.toString('ascii',start,end);}
+if(manifest.applicationIcon) {
+  const resourceBase=offset(executable.readUInt32LE(optional+112+2*8));
+  function children(relative) {
+    const base=resourceBase+relative,count=executable.readUInt16LE(base+12)+executable.readUInt16LE(base+14),result=[];
+    for(let i=0;i<count;i++) {const entry=base+16+i*8;result.push({id:executable.readUInt32LE(entry),target:executable.readUInt32LE(entry+4)});}
+    return result;
+  }
+  function resource(type,id) {
+    const group=children(0).find(e=>e.id===type);assert(group,'Resource type missing');
+    const item=children(group.target&0x7fffffff).find(e=>e.id===id);assert(item,'Resource ID missing');
+    const language=children(item.target&0x7fffffff)[0];assert(language&&!(language.target&0x80000000));
+    const entry=resourceBase+language.target,start=offset(executable.readUInt32LE(entry)),size=executable.readUInt32LE(entry+4);
+    return executable.subarray(start,start+size);
+  }
+  const group=resource(14,manifest.applicationIcon.resourceId),count=group.readUInt16LE(4),directory=Buffer.alloc(6+count*16),images=[],sizes=[];
+  group.copy(directory,0,0,6);let cursor=directory.length;
+  for(let i=0;i<count;i++) {
+    const from=6+i*14,to=6+i*16,bytes=resource(3,group.readUInt16LE(from+12));
+    assert.equal(bytes.length,group.readUInt32LE(from+8));group.copy(directory,to,from,from+12);directory.writeUInt32LE(cursor,to+12);
+    cursor+=bytes.length;images.push(bytes);sizes.push(group[from]||256);
+  }
+  assert.deepEqual(sizes.sort((a,b)=>a-b),manifest.applicationIcon.sizes);
+  assert.equal(sha(Buffer.concat([directory,...images])),manifest.applicationIcon.sourceSha256,'Embedded icon differs from the packaged source ICO');
+}
 const imports=[];
 for(let cursor=offset(executable.readUInt32LE(optional+112+8));executable.readUInt32LE(cursor)||executable.readUInt32LE(cursor+12);cursor+=20)imports.push(cstring(offset(executable.readUInt32LE(cursor+12))));
 const systemDlls=new Set(['advapi32.dll','kernel32.dll','ole32.dll','oleaut32.dll','shell32.dll','shlwapi.dll','comdlg32.dll','user32.dll','ws2_32.dll','gdi32.dll','msvcrt.dll','ucrtbase.dll']);
@@ -89,4 +113,4 @@ if(zip) {
   }
   assert.deepEqual([...seen].sort(),[...expected.keys()].sort());zipEntries=seen.size;
 }
-console.log(JSON.stringify({platform:'Windows x64',guiSubsystem:true,filesVerified:expected.size,exeSha256:sha(executable),exeBytes:executable.length,imports,privateDataIncluded:false,zipEntriesVerified:zipEntries,zipSha256:zipBytes?sha(zipBytes):undefined,windowsRuntimeTested:false},null,2));
+console.log(JSON.stringify({platform:'Windows x64',guiSubsystem:true,filesVerified:expected.size,iconImagesVerified:manifest.applicationIcon?.sizes.length??0,exeSha256:sha(executable),exeBytes:executable.length,imports,privateDataIncluded:false,zipEntriesVerified:zipEntries,zipSha256:zipBytes?sha(zipBytes):undefined,windowsRuntimeTested:false},null,2));

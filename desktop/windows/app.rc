@@ -1,4 +1,5 @@
 #include "version.h"
+101 ICON "FrameLab.ico"
 1 24 "app.manifest"
 1 VERSIONINFO
 FILEVERSION FRAME_LAB_FILE_VERSION

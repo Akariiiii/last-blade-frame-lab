@@ -124,6 +124,26 @@
       "sha256": "d0ea7da3089301459894e9482d625cc2327ea8b2bd81535b7ba0b443b240c58f"
     },
     {
+      "file": "desktop/icons/ASSET.md",
+      "bytes": 1976,
+      "sha256": "3b4fbb151b7e83583e23f7ad04d5a8a7438f0b602f3e0be625b5738e99a2fdd1"
+    },
+    {
+      "file": "desktop/icons/FrameLab.icns",
+      "bytes": 1991235,
+      "sha256": "e8d254509ec4ec8f10d1660fede5417045705a0df84c8a3ffaeace3e741e1eb7"
+    },
+    {
+      "file": "desktop/icons/FrameLab.ico",
+      "bytes": 372526,
+      "sha256": "54e71f5525218b7b87a89152507a1639eabd0c2a57a5f76f2d7b9d362bf34fbb"
+    },
+    {
+      "file": "desktop/icons/hibiki.png",
+      "bytes": 1382702,
+      "sha256": "f6918d5d0a7dd182f1bb140da7dce8abdc64e28f376b6cc9dd327738890831dc"
+    },
+    {
       "file": "desktop/macos/LocalServer.swift",
       "bytes": 7656,
       "sha256": "9dc261d9faa0fdf29d583c8c68dcffd1aed892c99a80008c262c6600b58966ed"
@@ -150,13 +170,13 @@
     },
     {
       "file": "desktop/windows/app.rc",
-      "bytes": 702,
-      "sha256": "179bca051502e9b7359638313b9db986f14b32718942b08a9353c516849c8f7e"
+      "bytes": 726,
+      "sha256": "c94b6f8e1d3862f0639fe96d429492b50ba6f85bd9c6f0b39f49314796a9bbdf"
     },
     {
       "file": "desktop/windows/main.cpp",
-      "bytes": 19039,
-      "sha256": "ae3a757c37db6ee933c17f04884580fa4aaa3f565bb80b1b779d8da33f784b29"
+      "bytes": 19391,
+      "sha256": "f3fa3bb54b46f1538976cda56a3b3f9095682fcb2663139a5f14e35c842587fb"
     },
     {
       "file": "desktop/windows/server-test.cpp",
@@ -164,9 +184,19 @@
       "sha256": "57f24eeb2178a4ef7e69a343cf27cc56cbce10394c4fb97597d183f80004aa65"
     },
     {
+      "file": "scripts/build-icons.mjs",
+      "bytes": 1655,
+      "sha256": "a6d63639bd270135bb8a01870b53d8efebc40652a2e36c467ea4504649dc8d88"
+    },
+    {
       "file": "scripts/generate-demo.mjs",
       "bytes": 7171,
       "sha256": "bc2c888f1fe9aa81aa619841ef0d6ff2f44b59047ab3e9e6b0110fc836d61767"
+    },
+    {
+      "file": "scripts/icon-assets.test.mjs",
+      "bytes": 1747,
+      "sha256": "778ece5f65b535f0e1f32098c84bcd204f79b0f36f9799e741a08dc05c2a5445"
     },
     {
       "file": "scripts/import-data.mjs",
@@ -180,23 +210,23 @@
     },
     {
       "file": "scripts/package-macos.mjs",
-      "bytes": 4124,
-      "sha256": "64de7e9547be27d116d0ca3410bea4f06530ea8b6468583b99816870b5f8f3fe"
+      "bytes": 4299,
+      "sha256": "b70363b7d01966c0ed9d8e4157f9d3e8e8070801464746ca9c9326d066b3d824"
     },
     {
       "file": "scripts/package-public.mjs",
-      "bytes": 3167,
-      "sha256": "daa5b6589ac7515281f6eaeeb2819db26542c3ddf90661f3f4cc03dde42c4c1a"
+      "bytes": 3189,
+      "sha256": "4b4fa1f44ac991fba4dd4c46007a44e09f6ecbed747607086d6505635ac240d8"
     },
     {
       "file": "scripts/package-windows.mjs",
-      "bytes": 8795,
-      "sha256": "85c5c7072342e3ce827bfb359ffb5b2aacb11fc168e84ef907c7c9782235217e"
+      "bytes": 9076,
+      "sha256": "5acfac953df74e4075b5fd1a9736a3f8105c9da3d2ed32b39b0d2433d44d7164"
     },
     {
       "file": "scripts/release-assets.mjs",
-      "bytes": 3535,
-      "sha256": "caaa57cba0ae42465ada25183aa7890ae0afcac74dbe33bca0271fac3f9a3cc8"
+      "bytes": 4114,
+      "sha256": "bbf8e82a92b84bde3d06837d71b9c95b4f43e22a2c25a46fff05583cceac9d4d"
     },
     {
       "file": "scripts/release-version.mjs",
@@ -220,8 +250,8 @@
     },
     {
       "file": "scripts/verify-windows.mjs",
-      "bytes": 6941,
-      "sha256": "96dfea58026d4cdeb3ac46a59aaeebf043c2fed3426fa373eaf7e504c500957f"
+      "bytes": 8688,
+      "sha256": "1a5d8de80bedc10fe1088344c847dbc50ce95b97024c6e064c62fbf9d72d76be"
     },
     {
       "file": "docs/ARCHITECTURE.md",
@@ -240,8 +270,8 @@
     },
     {
       "file": "docs/RELEASING.md",
-      "bytes": 2023,
-      "sha256": "32e4d4257eb24a07def15eb1c4c3e94042290c56c5e971f1f7de27cc0602ffa6"
+      "bytes": 2605,
+      "sha256": "65b606d4313e23e0b03e0a2233e60a722f88bf7fb7bb11d495f56e9e64f0aa96"
     },
     {
       "file": "docs/WINDOWS_APP.md",
@@ -419,9 +449,14 @@
       "sha256": "32449b8e74656985133c473e89740023abee0752826829a4f56bc53f34f3766c"
     },
     {
+      "file": "public/app-icon.png",
+      "bytes": 2418,
+      "sha256": "2fd1d6d8518031f53a37b4ded2369cefde3b8d0d304c07651cc95ea693e58a18"
+    },
+    {
       "file": "package.json",
-      "bytes": 1367,
-      "sha256": "8f0a1c3abb40edd65842edebfc1d1110f5083332b74a1b981bcbba0ae820cf97"
+      "bytes": 1418,
+      "sha256": "ad987d557a11d4d393d9dcf818eaf069a7d080012f7bbc39772108e68212e435"
     },
     {
       "file": "package-lock.json",
@@ -435,13 +470,13 @@
     },
     {
       "file": "vite.config.ts",
-      "bytes": 1199,
-      "sha256": "5e26478663059a0ec4ca43be518b585b9a1caeca8acc5ba270d51a505a08353c"
+      "bytes": 1286,
+      "sha256": "fcd81a788a19b21d0a80a31ba0116a7671e2283b15f87ad7d70d1ecdc2c44358"
     },
     {
       "file": "index.html",
-      "bytes": 427,
-      "sha256": "e582a61242e89500624e73e6f239641a3baeeb2fd407558ce6c56723f0c7973e"
+      "bytes": 483,
+      "sha256": "3ca2aad8dfa7fa082bfe8b62236f31aedce1c9bc7a960ab3933fcba54cab1e1f"
     },
     {
       "file": ".gitignore",
@@ -450,13 +485,13 @@
     },
     {
       "file": "README.md",
-      "bytes": 10794,
-      "sha256": "26800533a7d59be313a9959204a0aef3f666ca4f133bcb9b2f756cfaae2085b9"
+      "bytes": 10857,
+      "sha256": "604f66d6fcf58cc808115135f2be2ee12707842cde0ddb91a6a67d337c5f6eb2"
     },
     {
       "file": "NOTICE.md",
-      "bytes": 1047,
-      "sha256": "0a0c516254069ab005871e996524a8b6b216bec94a1517072fc2ee894341ea2d"
+      "bytes": 1363,
+      "sha256": "e29af566a1586fa93d54b3056956266a67a3603456e4318c655591e27a4de914"
     }
   ]
 }

@@ -311,6 +311,8 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
         Application app(executableFolder());
         WNDCLASSEXW kind{}; kind.cbSize = sizeof(kind); kind.lpfnWndProc = windowProcedure;
         kind.hInstance = instance; kind.hCursor = LoadCursorW(nullptr, IDC_ARROW); kind.lpszClassName = L"LastBlade2FrameLabWindow";
+        kind.hIcon = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(101), IMAGE_ICON, GetSystemMetrics(SM_CXICON), GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR));
+        kind.hIconSm = static_cast<HICON>(LoadImageW(instance, MAKEINTRESOURCEW(101), IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR));
         if (!RegisterClassExW(&kind)) throw std::runtime_error("Window class could not be registered.");
         HMENU menu = CreateMenu(), file = CreatePopupMenu();
         AppendMenuW(file, MF_STRING, chooseDataCommand, L"Choose Data Folder...\tCtrl+O");

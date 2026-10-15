@@ -2,7 +2,9 @@
 
 This project is an unofficial frame-analysis viewer. It is not affiliated with SNK, Fightcade, FBNeo or Dream Cancel.
 
-The public package includes application source and an original procedural demo made from coloured geometric shapes. Demo timings, damage and comparison values are examples, not Last Blade 2 measurements. No ROMs, BIOS, emulator executables, extracted sprites, game recordings or saved wiki snapshot are bundled.
+The public package includes application source, a newly generated pixel-style fan portrait of Hibiki Takane for the application icon, and an original procedural demo made from coloured geometric shapes. Demo timings, damage and comparison values are examples, not Last Blade 2 measurements. No ROMs, BIOS, emulator executables, extracted sprites, game recordings or saved wiki snapshot are bundled.
+
+The icon is a new illustration, not an extracted game sprite or an official SNK logo; the character remains associated with its respective rights holders. See `desktop/icons/ASSET.md` for asset provenance and generation prompt.
 
 Real data packs are supplied locally by users and ignored by Git. Publishing the application does not grant permission to redistribute third-party game images, ROM data or wiki content. Reference URLs are kept separate from measured values.
 

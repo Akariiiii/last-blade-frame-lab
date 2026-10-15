@@ -2,7 +2,7 @@
 
 A browser tool for inspecting saved fighting-game frames, collision boxes, damage and move timing. Built with React, TypeScript and Canvas. It plays exported recordings; it does not run an emulator or modify a ROM.
 
-The public repository includes **original geometric demo images and example values**. Real Last Blade 2 sprites, ROMs, BIOS, emulator binaries, recordings and wiki snapshots are supplied separately and are not included. See [NOTICE.md](NOTICE.md).
+The public repository includes **original geometric demo images and example values**, plus a newly drawn Hibiki pixel portrait used as the app icon. Real Last Blade 2 sprites, ROMs, BIOS, emulator binaries, recordings and wiki snapshots are supplied separately and are not included. See [NOTICE.md](NOTICE.md).
 
 ## Local app (macOS)
 

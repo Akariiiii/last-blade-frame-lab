@@ -17,7 +17,8 @@
     "package:windows": "node scripts/package-windows.mjs",
     "test:windows": "node scripts/test-windows.mjs",
     "verify:windows": "node scripts/verify-windows.mjs",
-    "release:assets": "node scripts/release-assets.mjs"
+    "release:assets": "node scripts/release-assets.mjs",
+    "icons:build": "node scripts/build-icons.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",
