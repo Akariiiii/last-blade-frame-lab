@@ -23,6 +23,10 @@ The output contains versioned Mac/Windows ZIPs, `SHA256SUMS.txt`, `release-manif
 
 Commit/push the matching source before creating the corresponding GitHub tag/release. Use the generated `v…` tag/name, mark beta/alpha/rc builds as prereleases, paste the release notes and upload the two app ZIPs plus checksum/manifest files. Build/asset preparation scripts never create tags, publish a GitHub Release or upload recordings automatically. Native Windows runtime testing and public signing/notarization remain separate acceptance steps.
 
+## License notices
+
+The viewer is MIT licensed. Source exports, production web builds and both native packages must include `LICENSE`, `NOTICE.md` and `THIRD_PARTY_NOTICES.md`. Windows additionally keeps Microsoft's WebView2 `THIRD_PARTY_NOTICES.txt` and the compiler runtime `TOOLCHAIN_NOTICES.txt`. When updating dependencies, run `npm run licenses:generate` to refresh the web-component notices from the installed versions pinned in `package-lock.json`, then review the resulting changes. Review toolchain notices when changing the compiler/runtime. External game data and SNK's character/artwork rights are outside this licence grant.
+
 ## Application artwork
 
 The app uses the Hibiki pixel portrait in `desktop/icons/hibiki.png`. Prebuilt `FrameLab.icns` / `FrameLab.ico` are included in source, so normal app builds need no image tools. The browser favicon is `public/app-icon.png`. To regenerate icon sizes from a changed master, run `npm run icons:build` on macOS with ImageMagick and iconutil. This only resizes/transcodes the finished artwork using nearest-neighbor sampling; it does not redraw it. Mac bundles declare CFBundleIconFile; Windows embeds the multi-size ICO and loads it for both window-icon sizes.

@@ -19,6 +19,7 @@ await fs.mkdir(out,{recursive:true});const temporary=await fs.mkdtemp(path.join(
 try {
   await fs.mkdir(path.join(app,'Contents/MacOS'),{recursive:true});await fs.mkdir(path.join(app,'Contents/Resources'),{recursive:true});
   await fs.copyFile(path.join(root,'desktop/icons/FrameLab.icns'),path.join(app,'Contents/Resources/FrameLab.icns'));
+  for(const file of ['LICENSE','NOTICE.md','THIRD_PARTY_NOTICES.md'])await fs.copyFile(path.join(root,file),path.join(app,'Contents/Resources',file));
   await fs.cp(path.join(root,'dist'),path.join(app,'Contents/Resources/web'),{recursive:true});
   // Compile an immutable snapshot, so both architectures use identical source.
   const sources=[];for(const name of ['LocalServer.swift','main.swift']){const target=path.join(temporary,name);await fs.copyFile(path.join(root,'desktop/macos',name),target);sources.push(target);}

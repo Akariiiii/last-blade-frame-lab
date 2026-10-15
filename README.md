@@ -121,7 +121,11 @@ npm run package:public
 
 This creates a new `Public/last-blade-frame-lab/` folder beside Viewer using an explicit source allowlist. Use that folder as your GitHub repository root. It includes this README, docs, tests, pinned dependencies and the procedural demo. It excludes `public/data`, original ROMs, BIOS, emulator executables, research traces, screenshots, dependencies, builds and machine-specific paths. `PUBLIC_EXPORT.json` records file hashes and size. The command refuses to overwrite an existing export; pass `-- --output /new/folder` for a separate revision, or `-- --refresh` to update an unchanged generated export. Refresh refuses to overwrite any source file edited in the export.
 
-Select an application licence and add `LICENSE` before inviting reuse. None has been chosen automatically. See the third-party asset boundary in [NOTICE.md](NOTICE.md).
+## License
+
+Original viewer code, documentation and the procedural demo are available under the [MIT License](LICENSE), copyright 2026 Akariiiii. You may use, modify and redistribute them, including commercially, while preserving the copyright and licence notice.
+
+This grant does not relicense third-party components or grant rights in SNK's game, character designs, artwork, trademarks, recordings or externally supplied data. See [NOTICE.md](NOTICE.md) and [third-party notices](THIRD_PARTY_NOTICES.md). The Mac/Windows ZIPs include these documents; the Windows package also retains Microsoft's separate WebView2 notices.
 
 ## Validation and limits
 

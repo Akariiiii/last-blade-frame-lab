@@ -13,6 +13,7 @@ export default defineConfig({
       // Production output always excludes the private recordings directory.
       await cp('public/demo', path.join(options.dir || 'dist', 'demo'), { recursive: true });
       await cp('public/app-icon.png',path.join(options.dir || 'dist','app-icon.png'));
+      for(const file of ['LICENSE','NOTICE.md','THIRD_PARTY_NOTICES.md'])await cp(file,path.join(options.dir || 'dist',file));
       const {writeFile}=await import('node:fs/promises');
       await writeFile(path.join(options.dir || 'dist','version.json'),JSON.stringify({version,tag:`v${version}`})+'\n');
     },

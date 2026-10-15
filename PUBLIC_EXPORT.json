@@ -125,8 +125,8 @@
     },
     {
       "file": "desktop/icons/ASSET.md",
-      "bytes": 1976,
-      "sha256": "3b4fbb151b7e83583e23f7ad04d5a8a7438f0b602f3e0be625b5738e99a2fdd1"
+      "bytes": 2157,
+      "sha256": "08aa790085cc8b787ede7e8e0c3802ecbbd2387bbc7c742b089c2c2072db4c4e"
     },
     {
       "file": "desktop/icons/FrameLab.icns",
@@ -164,6 +164,11 @@
       "sha256": "e551e37a9a1ac6dcb14e099b1502fc117bc9265d2b8f006d192aec232427a02c"
     },
     {
+      "file": "desktop/windows/TOOLCHAIN_NOTICES.txt",
+      "bytes": 41472,
+      "sha256": "6f7e8b1ba5c97840b3c3a5f3c2f5c0acaeb4c1c31d3ed13e5d1153ec2e7427e7"
+    },
+    {
       "file": "desktop/windows/app.manifest",
       "bytes": 892,
       "sha256": "719c5995aa69105397ece79206bfcee06c3073cdd4078487f95c3c7b0d71a3a7"
@@ -194,6 +199,11 @@
       "sha256": "bc2c888f1fe9aa81aa619841ef0d6ff2f44b59047ab3e9e6b0110fc836d61767"
     },
     {
+      "file": "scripts/generate-notices.mjs",
+      "bytes": 1813,
+      "sha256": "cd7a25c05f2da11c5e79cf0063f24852220fb23332dc3274e12afeb249bf78b4"
+    },
+    {
       "file": "scripts/icon-assets.test.mjs",
       "bytes": 1747,
       "sha256": "778ece5f65b535f0e1f32098c84bcd204f79b0f36f9799e741a08dc05c2a5445"
@@ -210,23 +220,23 @@
     },
     {
       "file": "scripts/package-macos.mjs",
-      "bytes": 4299,
-      "sha256": "b70363b7d01966c0ed9d8e4157f9d3e8e8070801464746ca9c9326d066b3d824"
+      "bytes": 4450,
+      "sha256": "e11454f33502557fba7c7bf0350d6168b5374b350595dca114e1cbeda3a5f61d"
     },
     {
       "file": "scripts/package-public.mjs",
-      "bytes": 3189,
-      "sha256": "4b4fa1f44ac991fba4dd4c46007a44e09f6ecbed747607086d6505635ac240d8"
+      "bytes": 3224,
+      "sha256": "84e105f7ffaf57dcc94f586d7b60a7c71c37f166ad5e00c3f66e8f024f5f6550"
     },
     {
       "file": "scripts/package-windows.mjs",
-      "bytes": 9076,
-      "sha256": "5acfac953df74e4075b5fd1a9736a3f8105c9da3d2ed32b39b0d2433d44d7164"
+      "bytes": 9329,
+      "sha256": "5f322701eb1597581b3eb3a435e544ec4a7fbb7456ac531b58d898bd91269eb4"
     },
     {
       "file": "scripts/release-assets.mjs",
-      "bytes": 4114,
-      "sha256": "bbf8e82a92b84bde3d06837d71b9c95b4f43e22a2c25a46fff05583cceac9d4d"
+      "bytes": 4668,
+      "sha256": "7fef252700875113e249c137b2b2514eb69d394201e5ed79f5e4f7fd95288893"
     },
     {
       "file": "scripts/release-version.mjs",
@@ -270,8 +280,8 @@
     },
     {
       "file": "docs/RELEASING.md",
-      "bytes": 2605,
-      "sha256": "65b606d4313e23e0b03e0a2233e60a722f88bf7fb7bb11d495f56e9e64f0aa96"
+      "bytes": 3245,
+      "sha256": "0b9a66571809215f7fd500613f032f0c0ef8aecbf1c604f2e8ae8df7c77f7917"
     },
     {
       "file": "docs/WINDOWS_APP.md",
@@ -455,13 +465,13 @@
     },
     {
       "file": "package.json",
-      "bytes": 1418,
-      "sha256": "ad987d557a11d4d393d9dcf818eaf069a7d080012f7bbc39772108e68212e435"
+      "bytes": 1473,
+      "sha256": "29387f6b625d43f71dc0a9d85e4211f187d4d62537621c599d39891785302827"
     },
     {
       "file": "package-lock.json",
-      "bytes": 62703,
-      "sha256": "5fa0a552571444421f7bc4a6716806632aaa2124fb299a3e05e99c6e98ed56bb"
+      "bytes": 62696,
+      "sha256": "d0896c43f7742c16f96c48c9ad77737f554a23b4671ca1ecb8923a45bc673e58"
     },
     {
       "file": "tsconfig.json",
@@ -470,8 +480,8 @@
     },
     {
       "file": "vite.config.ts",
-      "bytes": 1286,
-      "sha256": "fcd81a788a19b21d0a80a31ba0116a7671e2283b15f87ad7d70d1ecdc2c44358"
+      "bytes": 1413,
+      "sha256": "da64cfa56ce506728a21bcdf7d743f5a77faae997cc74d58fc4a728ff4da105d"
     },
     {
       "file": "index.html",
@@ -485,13 +495,23 @@
     },
     {
       "file": "README.md",
-      "bytes": 10857,
-      "sha256": "604f66d6fcf58cc808115135f2be2ee12707842cde0ddb91a6a67d337c5f6eb2"
+      "bytes": 11313,
+      "sha256": "6ece69767c74999831d1242ad4f7325d028e91c9600f5a724148cc55ad6fdcb7"
+    },
+    {
+      "file": "LICENSE",
+      "bytes": 1066,
+      "sha256": "4a8ab2eb298d867bd3daee78b20a79ba1808863fd9496b98ff5d1e75343eddd2"
     },
     {
       "file": "NOTICE.md",
-      "bytes": 1363,
-      "sha256": "e29af566a1586fa93d54b3056956266a67a3603456e4318c655591e27a4de914"
+      "bytes": 2799,
+      "sha256": "09f6a6c7c9ae27d658545c2084f2e269414e4c530ff2265f920f1be4aa8efb3e"
+    },
+    {
+      "file": "THIRD_PARTY_NOTICES.md",
+      "bytes": 119719,
+      "sha256": "650128283036922496cdd7ebfc9352e9e4919557f4175a268ff2a5a6847d85b5"
     }
   ]
 }
