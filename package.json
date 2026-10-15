@@ -1,6 +1,6 @@
 {
   "name": "last-blade-2-frame-viewer",
-  "version": "0.1.0",
+  "version": "0.1.0-beta.1",
   "private": true,
   "type": "module",
   "scripts": {
@@ -16,7 +16,8 @@
     "test:mac": "node scripts/test-macos.mjs",
     "package:windows": "node scripts/package-windows.mjs",
     "test:windows": "node scripts/test-windows.mjs",
-    "verify:windows": "node scripts/verify-windows.mjs"
+    "verify:windows": "node scripts/verify-windows.mjs",
+    "release:assets": "node scripts/release-assets.mjs"
   },
   "dependencies": {
     "react": "^19.1.0",

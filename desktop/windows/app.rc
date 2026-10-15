@@ -1,7 +1,10 @@
+#include "version.h"
 1 24 "app.manifest"
 1 VERSIONINFO
-FILEVERSION 0,1,0,0
-PRODUCTVERSION 0,1,0,0
+FILEVERSION FRAME_LAB_FILE_VERSION
+PRODUCTVERSION FRAME_LAB_FILE_VERSION
+FILEFLAGSMASK 0x3fL
+FILEFLAGS FRAME_LAB_PRERELEASE
 FILEOS 0x40004L
 FILETYPE 0x1L
 BEGIN
@@ -11,10 +14,10 @@ BEGIN
     BEGIN
       VALUE "CompanyName", "Frame Lab Contributors\0"
       VALUE "FileDescription", "Last Blade 2 Frame Lab\0"
-      VALUE "FileVersion", "0.1.0\0"
+      VALUE "FileVersion", FRAME_LAB_VERSION "\0"
       VALUE "OriginalFilename", "Last Blade 2 Frame Lab.exe\0"
       VALUE "ProductName", "Last Blade 2 Frame Lab\0"
-      VALUE "ProductVersion", "0.1.0\0"
+      VALUE "ProductVersion", FRAME_LAB_VERSION "\0"
     END
   END
   BLOCK "VarFileInfo"

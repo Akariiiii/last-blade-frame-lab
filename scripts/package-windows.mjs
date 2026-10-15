@@ -4,6 +4,8 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
+import {releaseVersion,windowsVersionHeader} from './release-version.mjs';
+const release=releaseVersion();
 
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const sdkVersion='1.0.4258.31';
@@ -16,7 +18,7 @@ for(let i=0;i<args.length;i++) {
   else if(args[i]==='--sdk-package'&&args[i+1])sdkPackage=path.resolve(args[++i]);
   else throw new Error('Usage: node scripts/package-windows.mjs [--output /new/directory] [--assets /built/UI] [--sdk-package /pinned.nupkg]');
 }
-const folder='LastBlade2-FrameLab-Windows',destination=path.join(out,folder),zip=path.join(out,'LastBlade2-FrameLab-Windows-x64.zip');
+const folder='LastBlade2-FrameLab-Windows',destination=path.join(out,folder),zip=path.join(out,release.windowsZip);
 for(const target of [destination,zip])try {await fs.lstat(target);throw new Error(`Output already exists: ${target}. Choose a new output directory.`);}catch(e){if(e.code!=='ENOENT')throw e;}
 const run=(command,argv,options={})=>{
   const r=spawnSync(command,argv,{cwd:root,stdio:'inherit',...options});
@@ -33,6 +35,8 @@ if(!assets) {
   assets=path.join(root,'dist');
 }
 for(const file of ['index.html','demo/manifest.json'])await fs.access(path.join(assets,file));
+const builtVersion=JSON.parse(await fs.readFile(path.join(assets,'version.json'),'utf8'));
+if(builtVersion.version!==release.version)throw new Error('Built UI version differs from package.json. Rebuild the viewer before packaging.');
 // Explicit assets also obey the production boundary: never package private /data.
 try {await fs.lstat(path.join(assets,'data'));throw new Error('Refusing assets containing a private data directory.');}catch(e){if(e.code!=='ENOENT')throw e;}
 await fs.mkdir(out,{recursive:true});const temporary=await fs.mkdtemp(path.join(out,'.windows-build-'));
@@ -50,6 +54,9 @@ try {
   if(process.platform==='win32')powershell('Expand-Archive -LiteralPath $env:FRAME_LAB_SDK_ARCHIVE -DestinationPath $env:FRAME_LAB_SDK_TARGET',{FRAME_LAB_SDK_ARCHIVE:archive,FRAME_LAB_SDK_TARGET:sdk});
   else run('unzip',['-q',archive,'-d',sdk]);
   for(const file of ['main.cpp','LocalServer.cpp','LocalServer.hpp','app.rc','app.manifest'])await fs.copyFile(path.join(root,'desktop/windows',file),path.join(sources,file));
+  await fs.writeFile(path.join(sources,'version.h'),windowsVersionHeader(release));
+  const appManifest=path.join(sources,'app.manifest');
+  await fs.writeFile(appManifest,(await fs.readFile(appManifest,'utf8')).replace('@NATIVE_VERSION@',release.native.join('.')));
   await fs.cp(assets,path.join(bundle,'web'),{recursive:true,dereference:false});
   // Symlinks are not a portable application asset and may escape the explicit UI snapshot.
   async function files(directory) {
@@ -73,13 +80,13 @@ try {
   await fs.copyFile(path.join(sdk,'build/native/x64/WebView2Loader.dll'),path.join(bundle,'WebView2Loader.dll'));
   const license=await fs.readFile(path.join(sdk,'LICENSE.txt'),'utf8'),notice=await fs.readFile(path.join(sdk,'NOTICE.txt'),'utf8');
   await fs.writeFile(path.join(bundle,'THIRD_PARTY_NOTICES.txt'),`Microsoft.Web.WebView2 ${sdkVersion}\nSource: ${sdkUrl}\nSHA-256: ${sdkSha256}\n\n${license}\n\n${notice}`);
-  await fs.writeFile(path.join(bundle,'README.txt'),`Last Blade 2 Frame Lab - Windows x64\n\nExtract this entire ZIP into a writable local folder. Open Last Blade 2 Frame Lab.exe.\nKeep WebView2Loader.dll and the web folder beside the EXE.\nRequires Windows 10/11 x64 and Microsoft Edge WebView2 Evergreen Runtime:\nhttps://developer.microsoft.com/microsoft-edge/webview2/#download-section\nNo Node.js, Python, emulator, administrator access or normal access logs.\n\nThe bundled demo is procedural. No game ROMs or recorded game art are included.\nFor real recordings use File > Choose Data Folder and choose a pack containing manifest.json and extended.\nAlternatively put a complete data folder beside the EXE before first launch.\nUse File > Use Demo to return to the demo. Ctrl+O chooses data; Ctrl+R reloads.\nExport buttons open a native Windows Save dialog.\n\nThis build is unsigned. Cross-compilation and host-side HTTP checks are not Windows runtime acceptance.\nNative Windows playback, folder selection and downloads still require a Windows smoke test.\n`);
+  await fs.writeFile(path.join(bundle,'README.txt'),`Last Blade 2 Frame Lab v${release.version} - Windows x64\n\nExtract this entire ZIP into a writable local folder. Open Last Blade 2 Frame Lab.exe.\nKeep WebView2Loader.dll and the web folder beside the EXE.\nRequires Windows 10/11 x64 and Microsoft Edge WebView2 Evergreen Runtime:\nhttps://developer.microsoft.com/microsoft-edge/webview2/#download-section\nNo Node.js, Python, emulator, administrator access or normal access logs.\n\nThe bundled demo is procedural. No game ROMs or recorded game art are included.\nFor real recordings use File > Choose Data Folder and choose a pack containing manifest.json and extended.\nAlternatively put a complete data folder beside the EXE before first launch.\nUse File > Use Demo to return to the demo. Ctrl+O chooses data; Ctrl+R reloads.\nExport buttons open a native Windows Save dialog.\n\nThis build is unsigned. Cross-compilation and host-side HTTP checks are not Windows runtime acceptance.\nNative Windows playback, folder selection and downloads still require a Windows smoke test.\n`);
   const entries=[];
   for(const file of await files(bundle))entries.push({path:path.relative(bundle,file).split(path.sep).join('/'),bytes:(await fs.stat(file)).size,sha256:crypto.createHash('sha256').update(await fs.readFile(file)).digest('hex')});
-  await fs.writeFile(path.join(bundle,'package-manifest.json'),JSON.stringify({format:1,platform:'win32',architecture:'x64',app:'Last Blade 2 Frame Lab.exe',sdk:{version:sdkVersion,url:sdkUrl,sha256:sdkSha256},runtime:'Microsoft Edge WebView2 Evergreen Runtime',privateDataIncluded:false,requiresNodeToRun:false,requiresPythonToRun:false,signed:false,files:entries},null,2)+'\n');
+  await fs.writeFile(path.join(bundle,'package-manifest.json'),JSON.stringify({format:1,version:release.version,tag:release.tag,nativeVersion:release.native,platform:'win32',architecture:'x64',app:'Last Blade 2 Frame Lab.exe',sdk:{version:sdkVersion,url:sdkUrl,sha256:sdkSha256},runtime:'Microsoft Edge WebView2 Evergreen Runtime',privateDataIncluded:false,requiresNodeToRun:false,requiresPythonToRun:false,signed:false,files:entries},null,2)+'\n');
   const temporaryZip=path.join(temporary,'windows.zip');
   if(process.platform==='win32')powershell('Compress-Archive -LiteralPath $env:FRAME_LAB_ZIP_SOURCE -DestinationPath $env:FRAME_LAB_ZIP_TARGET -CompressionLevel Optimal',{FRAME_LAB_ZIP_SOURCE:bundle,FRAME_LAB_ZIP_TARGET:temporaryZip});
   else run('zip',['-q','-r',temporaryZip,folder],{cwd:temporary});
   await fs.rename(bundle,destination);await fs.rename(temporaryZip,zip);
 } finally {await fs.rm(temporary,{recursive:true,force:true});}
-console.log(JSON.stringify({app:path.join(destination,'Last Blade 2 Frame Lab.exe'),zip,architecture:'x64',privateDataIncluded:false,requiresNodeToRun:false,requiresPythonToRun:false,signed:false,windowsRuntimeTested:false}));
+console.log(JSON.stringify({version:release.version,app:path.join(destination,'Last Blade 2 Frame Lab.exe'),zip,architecture:'x64',privateDataIncluded:false,requiresNodeToRun:false,requiresPythonToRun:false,signed:false,windowsRuntimeTested:false}));

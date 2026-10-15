@@ -1209,7 +1209,7 @@ export default function App() {
           {!extendedView && loading && move && <div className="loading-line">{loading}…</div>}
           {extendedView ? <FrameWorkbench selectorId={currentRoster?.id} mode={mode} /> : body}
           <footer className="main-footer">
-            <span>LAST BLADE 2 / FRAME LAB</span>
+            <span>LAST BLADE 2 / FRAME LAB · <b aria-label="Application version">v{__APP_VERSION__}</b></span>
             <span>
               Recordings and reference values remain distinct · original ROM
               unchanged

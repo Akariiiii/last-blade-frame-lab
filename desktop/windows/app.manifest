@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
-  <assemblyIdentity version="0.1.0.0" processorArchitecture="amd64" name="LastBlade2.FrameLab" type="win32"/>
+  <assemblyIdentity version="@NATIVE_VERSION@" processorArchitecture="amd64" name="LastBlade2.FrameLab" type="win32"/>
   <description>Last Blade 2 Frame Lab</description>
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3"><security><requestedPrivileges>
     <requestedExecutionLevel level="asInvoker" uiAccess="false"/>

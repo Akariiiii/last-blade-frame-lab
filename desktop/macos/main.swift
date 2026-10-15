@@ -37,12 +37,13 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         let menu = NSMenu()
         let appItem = NSMenuItem(); menu.addItem(appItem)
         let appMenu = NSMenu(); appItem.submenu = appMenu
-        for (title, action, key) in [("Reload Viewer", #selector(reloadViewer), "r"), ("Choose Data Folder…", #selector(chooseData), "o"), ("Use Demo", #selector(useDemo), ""), ("Quit Frame Lab", #selector(quit), "q")] {
+        for (title, action, key) in [("About Frame Lab", #selector(showAbout), ""), ("Reload Viewer", #selector(reloadViewer), "r"), ("Choose Data Folder…", #selector(chooseData), "o"), ("Use Demo", #selector(useDemo), ""), ("Quit Frame Lab", #selector(quit), "q")] {
             let item = NSMenuItem(title: title, action: action, keyEquivalent: key); item.target = self; appMenu.addItem(item)
         }
         NSApp.mainMenu = menu
         window = NSWindow(contentRect: NSRect(x: 0, y: 0, width: 1280, height: 900), styleMask: [.titled, .closable, .miniaturizable, .resizable], backing: .buffered, defer: false)
-        window.title = "Last Blade 2 · Frame Lab"; window.minSize = NSSize(width: 640, height: 500); window.center()
+        let version = Bundle.main.object(forInfoDictionaryKey: "FrameLabVersion") as? String ?? "unknown"
+        window.title = "Last Blade 2 · Frame Lab v\(version)"; window.minSize = NSSize(width: 640, height: 500); window.center()
         webView = WKWebView(frame: window.contentView!.bounds); webView.autoresizingMask = [.width, .height]; webView.navigationDelegate = self
         window.contentView!.addSubview(webView); window.makeKeyAndOrderFront(nil)
         server = LocalServer(webRoot: resources.appendingPathComponent("web"), dataRoot: pack)
@@ -56,6 +57,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
                 }
             }
         } catch { showError(error.localizedDescription) }
+    }
+    @objc private func showAbout() {
+        let version = Bundle.main.object(forInfoDictionaryKey: "FrameLabVersion") as? String ?? "unknown"
+        NSApp.orderFrontStandardAboutPanel(options: [.applicationVersion: version])
     }
     private func validPack(_ url: URL) -> Bool {
         ["manifest.json", "extended/index.json", "extended/metrics.json", "extended/profiles.json"].allSatisfy { FileManager.default.fileExists(atPath: url.appendingPathComponent($0).path) }

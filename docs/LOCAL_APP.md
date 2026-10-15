@@ -24,7 +24,7 @@ npm ci
 npm run package:mac
 ```
 
-The output is `../Local/Last Blade 2 Frame Lab.app` and `../Local/LastBlade2-FrameLab-macOS.zip`. Existing outputs are preserved; use a new folder for another build:
+The output is `../Local/Last Blade 2 Frame Lab.app` and `../Local/LastBlade2-FrameLab-v<version>-macOS-universal.zip`. Existing outputs are preserved; use a new folder for another build:
 
 ```sh
 npm run package:mac -- --output /path/to/new-package

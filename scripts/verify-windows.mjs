@@ -4,6 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { inflateRawSync } from 'node:zlib';
+import {versionInfo} from './release-version.mjs';
 
 const args=process.argv.slice(2);let bundle,zip;
 for(let i=0;i<args.length;i++) {
@@ -54,6 +55,14 @@ for(let cursor=offset(executable.readUInt32LE(optional+112+8));executable.readUI
 const systemDlls=new Set(['advapi32.dll','kernel32.dll','ole32.dll','oleaut32.dll','shell32.dll','shlwapi.dll','comdlg32.dll','user32.dll','ws2_32.dll','gdi32.dll','msvcrt.dll','ucrtbase.dll']);
 for(const name of imports)assert(systemDlls.has(name.toLowerCase())||/^api-ms-win-crt-[a-z0-9-]+\.dll$/i.test(name),`Unexpected non-system runtime dependency: ${name}`);
 assert(executable.includes(Buffer.from('asInvoker')),'Executable must embed its non-admin manifest.');
+if(manifest.version) {
+  const release=versionInfo(manifest.version),signature=Buffer.from([0xbd,0x04,0xef,0xfe]);
+  const fixed=executable.indexOf(signature);assert(fixed>=0,'Native version resource is missing.');
+  assert.equal(executable.readUInt32LE(fixed+8),release.native[0]*65536+release.native[1]);
+  assert.equal(executable.readUInt32LE(fixed+12),release.native[2]*65536+release.native[3]);
+  assert(executable.includes(Buffer.from(manifest.version+'\0','utf16le')),'Full release version missing from Windows resource.');
+  assert.equal(JSON.parse(expected.get('web/version.json').toString()).version,manifest.version,'UI/native version mismatch.');
+}
 assert(expected.has('WebView2Loader.dll'));assert(expected.has('web/index.html'));assert(expected.has('web/demo/manifest.json'));
 let zipBytes,zipEntries;
 if(zip) {

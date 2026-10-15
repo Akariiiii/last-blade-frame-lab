@@ -1,11 +1,12 @@
 {
   "schemaVersion": 1,
+  "version": "0.1.0-beta.1",
   "scope": "source + original procedural demo only",
   "files": [
     {
       "file": "src/app/App.tsx",
-      "bytes": 42493,
-      "sha256": "ddae78568edfe2bfc1ee30a30bb90294237289677b517b27bb9becf037d526bf"
+      "bytes": 42555,
+      "sha256": "1df23aad3c60c09e331fd9b9086fc094529e0d26460a33f24d376ae94eb44154"
     },
     {
       "file": "src/app/styles.css",
@@ -119,8 +120,8 @@
     },
     {
       "file": "src/vite-env.d.ts",
-      "bytes": 38,
-      "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+      "bytes": 77,
+      "sha256": "d0ea7da3089301459894e9482d625cc2327ea8b2bd81535b7ba0b443b240c58f"
     },
     {
       "file": "desktop/macos/LocalServer.swift",
@@ -129,8 +130,8 @@
     },
     {
       "file": "desktop/macos/main.swift",
-      "bytes": 7100,
-      "sha256": "ad95bf2a7ba09d7117288ba9e524cd38280ecdad87469c8f33eecc74a6cf3f5a"
+      "bytes": 7498,
+      "sha256": "8069aced0ca0e071c98b6554b56ecb4e29af2237c7e2597114c93178e723ef98"
     },
     {
       "file": "desktop/windows/LocalServer.cpp",
@@ -144,18 +145,18 @@
     },
     {
       "file": "desktop/windows/app.manifest",
-      "bytes": 883,
-      "sha256": "524063208f4c402523953c7f9a07b39d33a85f701ee3e753c633b3e2601281e8"
+      "bytes": 892,
+      "sha256": "719c5995aa69105397ece79206bfcee06c3073cdd4078487f95c3c7b0d71a3a7"
     },
     {
       "file": "desktop/windows/app.rc",
-      "bytes": 574,
-      "sha256": "5fd93f4c8a68f519a7a29c752c742b981476aa8c29e2f90161eed434cd385c02"
+      "bytes": 702,
+      "sha256": "179bca051502e9b7359638313b9db986f14b32718942b08a9353c516849c8f7e"
     },
     {
       "file": "desktop/windows/main.cpp",
-      "bytes": 18996,
-      "sha256": "7524f1bb302cdbf39ab9c50f9ca36c1dfc704f2830591ed2c850ed9da7d93232"
+      "bytes": 19039,
+      "sha256": "ae3a757c37db6ee933c17f04884580fa4aaa3f565bb80b1b779d8da33f784b29"
     },
     {
       "file": "desktop/windows/server-test.cpp",
@@ -179,18 +180,33 @@
     },
     {
       "file": "scripts/package-macos.mjs",
-      "bytes": 3946,
-      "sha256": "f4191fa5772a4c38f7fa4a2951f5bc7bacafe248e8b769e332dd3c891b071d61"
+      "bytes": 4124,
+      "sha256": "64de7e9547be27d116d0ca3410bea4f06530ea8b6468583b99816870b5f8f3fe"
     },
     {
       "file": "scripts/package-public.mjs",
-      "bytes": 3080,
-      "sha256": "b230c7bf7d87ffabef77112282eeaa0bf8b0e0a3d79d1681afec5e4354df3d75"
+      "bytes": 3167,
+      "sha256": "daa5b6589ac7515281f6eaeeb2819db26542c3ddf90661f3f4cc03dde42c4c1a"
     },
     {
       "file": "scripts/package-windows.mjs",
-      "bytes": 8093,
-      "sha256": "a2d997b173f762e57c2c229a04fb8c892df5941df577a022aaf7027d03327ba1"
+      "bytes": 8795,
+      "sha256": "85c5c7072342e3ce827bfb359ffb5b2aacb11fc168e84ef907c7c9782235217e"
+    },
+    {
+      "file": "scripts/release-assets.mjs",
+      "bytes": 3535,
+      "sha256": "caaa57cba0ae42465ada25183aa7890ae0afcac74dbe33bca0271fac3f9a3cc8"
+    },
+    {
+      "file": "scripts/release-version.mjs",
+      "bytes": 1300,
+      "sha256": "ba322a43a1f968a17cc559e3ad8104defee29834d2bb72fbc3cd63dbddf192bd"
+    },
+    {
+      "file": "scripts/release-version.test.mjs",
+      "bytes": 1285,
+      "sha256": "e293657ae8e5a37773f00869421f51e75f702aa1adedcb9a2037b2529d53f5eb"
     },
     {
       "file": "scripts/test-macos.mjs",
@@ -204,8 +220,8 @@
     },
     {
       "file": "scripts/verify-windows.mjs",
-      "bytes": 6229,
-      "sha256": "af1f61cbaab62fca323aa335b8828e64a77fd34b409d296a7f988648804b459a"
+      "bytes": 6941,
+      "sha256": "96dfea58026d4cdeb3ac46a59aaeebf043c2fed3426fa373eaf7e504c500957f"
     },
     {
       "file": "docs/ARCHITECTURE.md",
@@ -219,13 +235,18 @@
     },
     {
       "file": "docs/LOCAL_APP.md",
-      "bytes": 3300,
-      "sha256": "36ddf098e65a766868885c6615b3a19e1893842abd1c67f9af3ddd55f8db78d8"
+      "bytes": 3321,
+      "sha256": "bf16cd66a84aca73b52db23ac24f6fe0f9e8409cbe96072b188b4f396b1980ee"
+    },
+    {
+      "file": "docs/RELEASING.md",
+      "bytes": 2023,
+      "sha256": "32e4d4257eb24a07def15eb1c4c3e94042290c56c5e971f1f7de27cc0602ffa6"
     },
     {
       "file": "docs/WINDOWS_APP.md",
-      "bytes": 5028,
-      "sha256": "616eb9a93188768c5534349851bcdc7397943ea26d63945850ed47c471965953"
+      "bytes": 5351,
+      "sha256": "c6d60f8851a93bd8d5f8da127d451c827050a2f565ebfc2db259773bbd1da463"
     },
     {
       "file": ".github/workflows/ci.yml",
@@ -399,13 +420,13 @@
     },
     {
       "file": "package.json",
-      "bytes": 1303,
-      "sha256": "07b58112bfb3b3e5685594dac6853a11d3064cad84b9161cdc5a9f925bed21ec"
+      "bytes": 1367,
+      "sha256": "8f0a1c3abb40edd65842edebfc1d1110f5083332b74a1b981bcbba0ae820cf97"
     },
     {
       "file": "package-lock.json",
-      "bytes": 62689,
-      "sha256": "5423472f382fd1e153871c4cc0cd0a574ab7bfdddaa2dbdfadc3b7680cf1bf09"
+      "bytes": 62703,
+      "sha256": "5fa0a552571444421f7bc4a6716806632aaa2124fb299a3e05e99c6e98ed56bb"
     },
     {
       "file": "tsconfig.json",
@@ -414,8 +435,8 @@
     },
     {
       "file": "vite.config.ts",
-      "bytes": 669,
-      "sha256": "58fb455c54d65567c503c9cd2467b6ff646d538a89d3439f2ccc6bf63cf1045e"
+      "bytes": 1199,
+      "sha256": "5e26478663059a0ec4ca43be518b585b9a1caeca8acc5ba270d51a505a08353c"
     },
     {
       "file": "index.html",
@@ -429,8 +450,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 10379,
-      "sha256": "d66b836f72a73194787169722ce52864a07ec9f828ce8c0fd9617d8d11f390c5"
+      "bytes": 10794,
+      "sha256": "26800533a7d59be313a9959204a0aef3f666ca4f133bcb9b2f756cfaae2085b9"
     },
     {
       "file": "NOTICE.md",

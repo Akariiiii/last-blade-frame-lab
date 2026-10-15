@@ -13,6 +13,7 @@
 #include <string>
 #include <vector>
 #include "LocalServer.hpp"
+#include "version.h"
 
 namespace fs = std::filesystem;
 constexpr UINT chooseDataCommand = 101, useDemoCommand = 102, reloadCommand = 103, quitCommand = 104;
@@ -317,7 +318,7 @@ int WINAPI wWinMain(HINSTANCE instance, HINSTANCE, PWSTR, int show) {
         AppendMenuW(file, MF_STRING, reloadCommand, L"Reload Viewer\tCtrl+R");
         AppendMenuW(file, MF_SEPARATOR, 0, nullptr); AppendMenuW(file, MF_STRING, quitCommand, L"Quit");
         AppendMenuW(menu, MF_POPUP, reinterpret_cast<UINT_PTR>(file), L"File");
-        auto window = CreateWindowExW(0, kind.lpszClassName, L"Last Blade 2 - Frame Lab", WS_OVERLAPPEDWINDOW,
+        auto window = CreateWindowExW(0, kind.lpszClassName, L"Last Blade 2 - Frame Lab v" FRAME_LAB_VERSION_W, WS_OVERLAPPEDWINDOW,
             CW_USEDEFAULT, CW_USEDEFAULT, 1280, 900, nullptr, menu, instance, &app);
         if (!window) throw std::runtime_error("Viewer window could not be created.");
         ShowWindow(window, show); UpdateWindow(window); app.start();

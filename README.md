@@ -10,6 +10,10 @@ A native Mac package opens the same viewer in its own window and runs offline. D
 
 Developers can build it with `npm run package:mac`. This writes an app and ZIP outside the source folder. Large game data stays external and is excluded from the archive.
 
+## Versions and release ZIPs
+
+The app displays its release version in the footer and native window title. Ready-to-run archives include it in their filenames, for example `LastBlade2-FrameLab-v0.1.0-beta.1-macOS-universal.zip` and `LastBlade2-FrameLab-v0.1.0-beta.1-Windows-x64.zip`. See [release preparation](docs/RELEASING.md) for updating the version, building both ZIPs and generating checksums/release notes.
+
 ## Run
 
 Requires **Node.js 22.18+** and npm. Use a current browser with Canvas, Web Crypto and DecompressionStream support.

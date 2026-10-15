@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
+import {releaseVersion} from './release-version.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const args=process.argv.slice(2);const refresh=args.includes('--refresh');const rest=args.filter(a=>a!=='--refresh');if(rest.length&&!(rest.length===2&&rest[0]==='--output'))throw new Error('Usage: npm run package:public -- [--output /directory] [--refresh]');
 const destination=path.resolve(rest[1]??path.join(root,'../Public/last-blade-frame-lab'));
@@ -15,5 +16,5 @@ for(const item of ['src','desktop','scripts','docs','.github','public/demo','pac
 const payload=[];for(const name of files){const bytes=await fs.readFile(path.join(root,name));if(/\/Users\/[^/]+\/|\/home\/[^/]+\/|codex[-]runtimes/.test(bytes.toString('utf8')))throw new Error(`Local machine path in public source: ${name}`);payload.push([name,bytes]);}
 await fs.mkdir(destination,{recursive:true});const entries=[];
 for(const [name,bytes] of payload){const target=path.join(destination,name);await fs.mkdir(path.dirname(target),{recursive:true});await fs.writeFile(target,bytes);entries.push({file:name.split(path.sep).join('/'),bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});}
-await fs.writeFile(path.join(destination,'PUBLIC_EXPORT.json'),JSON.stringify({schemaVersion:1,scope:'source + original procedural demo only',files:entries},null,2)+'\n');
+await fs.writeFile(path.join(destination,'PUBLIC_EXPORT.json'),JSON.stringify({schemaVersion:1,version:releaseVersion().version,scope:'source + original procedural demo only',files:entries},null,2)+'\n');
 console.log(JSON.stringify({destination,files:entries.length,bytes:entries.reduce((n,e)=>n+e.bytes,0),gameAssetsIncluded:false}));
