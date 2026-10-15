@@ -1,0 +1,23 @@
+node_modules/
+dist/
+*.tsbuildinfo
+.DS_Store
+.env
+.env.*
+!.env.example
+# Local recordings and evidence never belong in the public source repository.
+public/data/
+public/.data-import-*/
+proof/
+coverage/
+*.log
+*.zip
+*.7z
+*.rom
+*.fs
+*.exe
+*.dll
+__pycache__/
+
+*.app/
+.mac-build-*/

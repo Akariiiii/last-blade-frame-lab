@@ -1,0 +1,10 @@
+Character,Mode,Move,Name,Category,Setup,Damage,Startup,Active,Recovery,HitAdvantage,BlockAdvantage,HeldGuardAdvantage,SwitchGuardAdvantage,ReboundRecovery,ReboundStatus,GuardPolicy,MeterGain,HitCount,EntryFrame,FirstActiveFrame,LastActiveFrame,ActionableFrame,ContactFrame,DefenderReadyFrame,NominalFPS,PlaybackFrames,SourceAdvanceFrames,HitpauseFrames,TimingScope,Recording
+Demo fighter,power,5A,Example strike,normal,hit,16,4,2,11,4,,,,,not_observed,none,3,1,2,6,9,20,6,24,60,30,28,2,synthetic example,demo-power-hit
+Demo fighter,power,5A,Example strike,normal,block,1,4,2,11,,-3,-3,,,not_observed,held,3,0,2,6,9,20,6,17,60,30,28,2,synthetic example,demo-power-block
+Demo fighter,power,5A,Example strike,normal,whiff,0,4,2,11,,,,,,not_observed,none,0,0,2,6,9,20,,,60,30,28,2,synthetic example,demo-power-whiff
+Demo fighter,speed,5A,Example strike,normal,hit,16,4,2,11,4,,,,,not_observed,none,3,1,2,6,9,20,6,24,60,30,28,2,synthetic example,demo-speed-hit
+Demo fighter,speed,5A,Example strike,normal,block,1,4,2,11,,-3,-3,,,not_observed,held,3,0,2,6,9,20,6,17,60,30,28,2,synthetic example,demo-speed-block
+Demo fighter,speed,5A,Example strike,normal,whiff,0,4,2,11,,,,,,not_observed,none,0,0,2,6,9,20,,,60,30,28,2,synthetic example,demo-speed-whiff
+Demo fighter,ex,5A,Example strike,normal,hit,16,4,2,11,4,,,,,not_observed,none,3,1,2,6,9,20,6,24,60,30,28,2,synthetic example,demo-ex-hit
+Demo fighter,ex,5A,Example strike,normal,block,1,4,2,11,,-3,-3,,,not_observed,held,3,0,2,6,9,20,6,17,60,30,28,2,synthetic example,demo-ex-block
+Demo fighter,ex,5A,Example strike,normal,whiff,0,4,2,11,,,,,,not_observed,none,0,0,2,6,9,20,,,60,30,28,2,synthetic example,demo-ex-whiff

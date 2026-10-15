@@ -1,0 +1,1 @@
+{"schemaVersion":1,"game":"Last Blade 2 Frame Lab · synthetic demo","generatedAt":"synthetic","romSha256":"none","characters":[{"id":0,"key":"demo-fighter","name":"Demo fighter","file":"/data/characters/demo-fighter.json","moveCount":1,"capturedMoves":1,"coverage":"Synthetic example only"}],"defaultCharacter":"demo-fighter"}

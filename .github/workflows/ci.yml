@@ -1,0 +1,30 @@
+name: Validate viewer
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run demo:generate
+      - run: npm run check
+      - run: npm run test:windows
+      - run: npm run data:import -- public/demo --check-only
+
+  mac-app:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run package:mac
+      - run: npm run test:mac -- '../Local/Last Blade 2 Frame Lab.app'

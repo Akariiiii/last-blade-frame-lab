@@ -1,0 +1,38 @@
+{
+  "name": "last-blade-2-frame-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --experimental-strip-types --test src/lib/*.test.ts src/lib/native/*.test.ts scripts/*.test.mjs",
+    "demo:generate": "node scripts/generate-demo.mjs",
+    "data:import": "node scripts/import-data.mjs",
+    "package:public": "node scripts/package-public.mjs",
+    "check": "npm test && npm run build",
+    "package:mac": "node scripts/package-macos.mjs",
+    "test:mac": "node scripts/test-macos.mjs",
+    "package:windows": "node scripts/package-windows.mjs",
+    "test:windows": "node scripts/test-windows.mjs",
+    "verify:windows": "node scripts/verify-windows.mjs"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.7.0",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5"
+  },
+  "engines": {
+    "node": ">=22.18"
+  },
+  "description": "Saved-frame viewer with collision overlays, move timing and independent reference comparisons",
+  "license": "UNLICENSED"
+}
