@@ -2,6 +2,12 @@
 
 A browser tool for inspecting saved fighting-game frames, collision boxes, damage and move timing. Built with React, TypeScript and Canvas. It plays exported recordings; it does not run an emulator or modify a ROM.
 
+During playback, **Distance / grab range** shows the distance between the players
+in game units. Verified original-game ground grabs also show their adjusted
+native distance and range limit, with a dashed range reference on the clip.
+The readout follows frame stepping and playback. A passing distance test alone
+does not guarantee a grab; actual recorded check results are marked separately.
+
 The public repository includes **original geometric demo images and example values**, plus a newly drawn Hibiki pixel portrait used as the app icon. Real Last Blade 2 sprites, ROMs, BIOS, emulator binaries, recordings and wiki snapshots are supplied separately and are not included. See [NOTICE.md](NOTICE.md).
 
 ## Local app (macOS)
@@ -12,7 +18,7 @@ Developers can build it with `npm run package:mac`. This writes an app and ZIP o
 
 ## Versions and release ZIPs
 
-The app displays its release version in the footer and native window title. Ready-to-run archives include it in their filenames, for example `LastBlade2-FrameLab-v0.1.0-beta.1-macOS-universal.zip` and `LastBlade2-FrameLab-v0.1.0-beta.1-Windows-x64.zip`. See [release preparation](docs/RELEASING.md) for updating the version, building both ZIPs and generating checksums/release notes.
+The app displays its release version in the footer and native window title. Ready-to-run archives include it in their filenames, for example `LastBlade2-FrameLab-v0.1.0-beta.2-macOS-universal.zip` and `LastBlade2-FrameLab-v0.1.0-beta.2-Windows-x64.zip`. See [beta.2 release notes](docs/releases/v0.1.0-beta.2.md) for changes and remaining data work, and [release preparation](docs/RELEASING.md) for building both ZIPs and generating checksums/release notes. App packages contain the procedural demo; real recordings remain local and are excluded from Git and these release assets.
 
 ## Run
 
@@ -54,7 +60,9 @@ Extract the full Windows ZIP and open **Last Blade 2 Frame Lab.exe**. Keep the i
 ## Controls
 
 - Select a character, Power/Speed/EX mode and move. Narrow windows use the Move dropdown.
-- Select a saved hit, guard, whiff or conditional setup. **All input variants** reveals grouped aliases without duplicating primary move rows.
+- Choose **Hit / Block / Whiff** in the **Outcome** dropdown. Statistics, clip and frame timeline switch together. **Stun** appears beside Startup, Active, Recovery, Damage, Advantage and Meter.
+- **Recording details and other measurements** contains input variants and independent trials; block recovery comparisons have their own expandable section. A missing image shows a clear placeholder; available RAM-only values remain labelled separately.
+- **Landing input tests**, where available, follows the selected outcome and separates physical landing, the no-input animation end, observed B/BCD buttons and new attack admission. These trials have their own CSV and frame indices; they do not replace the selected image clip's recovery.
 - Click the timeline or use **← / →** to step, **Shift + arrow** for ten frames, **Space** to play/pause and **Home / End** for boundaries. Shortcuts leave form controls alone.
 - Toggle hitboxes, hurtboxes, push boxes, the opponent and registered projectile objects. Player and object geometry comes from captured native collision data.
 - Read startup, active, recovery, damage, on-hit advantage and meter beside independent saved reference values. **Guard and rebound** shows held-guard advantage, switch-guard advantage and attacker rebound duration separately. Open **Guard measurement sources** to inspect their boundaries and provenance. Comparable matches are green; differences red; uncertain conditions carry review notes.

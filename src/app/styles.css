@@ -1,20 +1,17 @@
 :root {
   font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
+    Arial,
+    "Helvetica Neue",
     "Segoe UI",
     sans-serif;
   color: #e5e7dc;
   background: #0c120f;
   font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  font-size: 13px;
+  text-rendering: auto;
+  -webkit-font-smoothing: auto;
+  font-size: 14px;
   --gold: #d2b775;
-  --muted: #839788;
+  --muted: #a8b7aa;
   --border: #28372e;
   --panel: #151e18;
   --green: #80b18e;
@@ -1781,4 +1778,12 @@ td {
 .dispatch-note{font-size:10px;color:#819a73;line-height:1.7;margin:15px 0 0;}
 
 .demo-notice{padding:12px 20px;background:#463817;color:#ffe8a9;border-bottom:1px solid #8e783a;font-size:13px;text-align:center}
+
+/* Keep navigation and supporting text legible alongside the frame data. */
+.sidebar-heading,.move-groups h2,.character-item .status,.coverage-note{font-size:12px;line-height:1.5}
+.search-input,.character-item strong{font-size:13px}
+.character-item small,.character-item>div>span,.heading-meta,.eyebrow,.export-button{font-size:12px}
+.search-input::placeholder{color:#a2b49b}
+.badge{font-size:11px;letter-spacing:.4px}
+.move-name{font-family:inherit;font-weight:400}
 .startup-error{max-width:700px;margin:60px auto;padding:24px;line-height:1.7}

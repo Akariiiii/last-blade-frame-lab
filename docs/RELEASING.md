@@ -9,6 +9,13 @@ npm version 0.1.0-beta.2 --no-git-tag-version
 npm run check
 ```
 
+Write and review `docs/releases/v0.1.0-beta.2.md` before preparing release assets.
+Its first line must be `# Last Blade 2 Frame Lab v0.1.0-beta.2`. Keep verified
+changes, data scope and platform validation limits in that version's notes.
+`release:assets` selects the current version's file and fails if it is absent or
+has a different release heading; it never falls back to beta.1 notes. A reviewed
+file in another location can be passed with `--notes /path/to/notes.md`.
+
 On macOS with Xcode Command Line Tools and MinGW-w64, build both platforms into one new directory. The Windows build can reuse the exact UI built by the Mac package:
 
 ```sh
@@ -19,7 +26,7 @@ npm run verify:windows -- --bundle ../Releases/v0.1.0-beta.2/LastBlade2-FrameLab
 npm run release:assets -- --directory ../Releases/v0.1.0-beta.2
 ```
 
-The output contains versioned Mac/Windows ZIPs, `SHA256SUMS.txt`, `release-manifest.json` and editable `RELEASE_NOTES.md`. Both ZIPs include the procedural demo only; recordings stay separate. Old packages are preserved. Mac build metadata uses the numeric core version; the full prerelease label is retained in `FrameLabVersion`, the About panel and window title. Windows stores numeric file-version fields and the full release label as product/file version strings.
+The output contains versioned Mac/Windows ZIPs, `SHA256SUMS.txt`, `release-manifest.json` and a copy of the reviewed `RELEASE_NOTES.md`. The manifest also pins the notes' SHA-256. Edit the checked-in source notes and regenerate assets if the notes change. Both ZIPs include the procedural demo only; recordings stay separate. Old packages are preserved. Mac build metadata uses the numeric core version; the full prerelease label is retained in `FrameLabVersion`, the About panel and window title. Windows stores numeric file-version fields and the full release label as product/file version strings.
 
 Commit/push the matching source before creating the corresponding GitHub tag/release. Use the generated `v…` tag/name, mark beta/alpha/rc builds as prereleases, paste the release notes and upload the two app ZIPs plus checksum/manifest files. Build/asset preparation scripts never create tags, publish a GitHub Release or upload recordings automatically. Native Windows runtime testing and public signing/notarization remain separate acceptance steps.
 

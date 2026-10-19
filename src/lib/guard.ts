@@ -10,3 +10,7 @@ export function guardWikiBasis(held: number | null, switched: number | null, wik
 export function numeric(value: unknown): number | null {
   return typeof value === 'number' && Number.isFinite(value) ? value : null;
 }
+export function guardTrialEvidence(trial:{repetitions:number;pacings:number[];verification_status?:string}):string {
+  if(trial.verification_status==='provisional'||trial.repetitions<3||![1,2,4].every(p=>trial.pacings.includes(p)))return 'Single run · provisional';
+  return `${trial.repetitions} runs · repeat-checked`;
+}

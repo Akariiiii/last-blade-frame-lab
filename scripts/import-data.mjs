@@ -16,10 +16,26 @@ export async function inspectPack(source) {
     files.set(relative,info.size);return filename;
   }
   function local(url) {if(typeof url!=='string'||!url.startsWith('/data/'))throw new Error(`Expected a local /data reference: ${url}`);return url.slice(6);}
-  async function json(relative) {return JSON.parse(await fs.readFile(await add(relative),'utf8'));}
+  async function json(relative,expected) {return JSON.parse(await fs.readFile(await add(relative,expected),'utf8'));}
   const manifest=await json('manifest.json');if(manifest.schemaVersion!==1||!Array.isArray(manifest.characters)||!manifest.characters.length)throw new Error('Unsupported roster manifest');
   for(const character of manifest.characters){if(character.portrait)await add(local(character.portrait));const data=await json(local(character.file));for(const move of data.moves??[])for(const capture of move.captures??[]){const trace=await json(local(capture.file));for(const frame of trace.frames??[]){if(frame.image)await add(local(frame.image));if(frame.sprite?.image)await add(local(frame.sprite.image));}}}
   const index=await json('extended/index.json'),metrics=await json('extended/metrics.json');if(metrics.guard_evidence_url)await json(local(metrics.guard_evidence_url));await json(local(index.profiles_url));await add('extended/moves.csv');
+  if(metrics.hit_events_csv_url)await add(local(metrics.hit_events_csv_url));
+  if(metrics.guard_trials_url)await json(local(metrics.guard_trials_url));
+  if(metrics.guard_trials_csv_url)await add(local(metrics.guard_trials_csv_url));
+  if(metrics.air_trials_url)await json(local(metrics.air_trials_url));
+  if(metrics.movement_trials_url)await json(local(metrics.movement_trials_url));
+  if(metrics.move_properties_url){const properties=await json(local(metrics.move_properties_url));if(properties.schema_version!==2||!properties.shards)throw new Error('Unsupported move properties');for(const shard of Object.values(properties.shards))await json(local(shard.url),shard);}
+
+  if(metrics.setup_coverage_url)await json(local(metrics.setup_coverage_url));
+  if(metrics.recovery_trials_url)await json(local(metrics.recovery_trials_url));
+  if(metrics.recovery_trials_csv_url)await add(local(metrics.recovery_trials_csv_url));
+  if(metrics.landing_trials_url)await json(local(metrics.landing_trials_url));
+  if(metrics.landing_trials_csv_url)await add(local(metrics.landing_trials_csv_url));
+  if(metrics.stun_research_url)await json(local(metrics.stun_research_url));
+  if(metrics.charge_trials_url)await json(local(metrics.charge_trials_url));
+  if(metrics.charge_trials_csv_url)await add(local(metrics.charge_trials_csv_url));
+  for(const metric of Object.values(metrics.clips||{}))if(metric.repeat_verification?.evidence_url)await json(local(metric.repeat_verification.evidence_url));
   if(!Array.isArray(index.clips)||!index.clips.length)throw new Error('Missing native clips');
   const ids=new Set();for(const clip of index.clips){if(ids.has(clip.id)||!metrics.clips?.[clip.id])throw new Error(`Duplicate or unmeasured clip: ${clip.id}`);ids.add(clip.id);const prefix=local(clip.clip_url);if(!prefix.endsWith('/'))throw new Error('clip_url must end with /');const name=prefix+'manifest.json';const filename=await add(name);const bytes=await fs.readFile(filename);if(createHash('sha256').update(bytes).digest('hex')!==clip.manifest_sha256)throw new Error(`Manifest checksum failed: ${clip.id}`);const native=JSON.parse(bytes);if(!native.accepted||!['lastblade2-native-clip-v1','lastblade2-native-clip-v2'].includes(native.schema))throw new Error(`Unsupported clip: ${clip.id}`);for(const [file,expected]of Object.entries(native.files))await add(prefix+file+(file.endsWith('.gz')?'.bin':''),expected);}
   return {directory,files,clips:ids.size,bytes:[...files.values()].reduce((a,b)=>a+b,0)};

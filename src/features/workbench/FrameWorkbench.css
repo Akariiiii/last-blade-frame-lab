@@ -32,6 +32,8 @@
 .timing-review{border:1px solid #837342;background:#25291c;padding:14px 16px;border-radius:6px;color:#d9d4bc;font-size:12px;line-height:1.55;margin-bottom:16px}
 .timing-review strong{color:#ead59a;font-size:13px}
 .timing-review p{margin:6px 0 0}
+.repeat-evidence{border:1px solid #668b59;background:#1d3020;padding:14px 16px;border-radius:6px;color:#bcd1b8;font-size:12px;line-height:1.55;margin-bottom:16px}
+.repeat-evidence>strong{color:#b9e3ad;font-size:13px}.repeat-evidence p{margin:6px 0 0}.repeat-evidence details{margin-top:8px;overflow-wrap:anywhere}.repeat-evidence summary{cursor:pointer}.repeat-evidence a{display:inline-block;margin-top:6px;color:#c9debf}.repeat-different{border-color:#a96860;background:#342622}.repeat-different>strong{color:#ffa59b}
 .frame-workbench .frame-tick.phase-motion,.phase-badge.phase-motion{background:#a8bca0}
 .frame-workbench .frame-tick.phase-unresolved{background:#4d534a}
 .frame-workbench .frame-tick.frozen,.phase-legend .frozen{background-image:repeating-linear-gradient(135deg,transparent 0 3px,#fff8 3px 5px)}
@@ -65,3 +67,37 @@
 .guard-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.guard-stat{border:1px solid #354533;border-radius:5px;padding:12px;min-width:0}.guard-stat>span{display:block;font-size:10px;color:#a2b49b;text-transform:uppercase;letter-spacing:.7px}.guard-stat strong{display:block;font-size:27px;margin:7px 0;font-variant-numeric:tabular-nums}.guard-stat em{font-style:normal;font-size:13px;margin-left:5px;color:#a2b49b}.guard-stat small{display:block;font-size:10px;line-height:1.5;color:#a6b49f}.guard-stat button{margin-top:8px;font-size:10px;padding:5px 8px;border:1px solid #52624a;border-radius:4px;color:#c8d3bd}.guard-reference-match{border-color:#668b59;background:#1d3020}.guard-match-label{display:block;font-size:10px;font-weight:500;color:#a3d5a1;margin-top:8px}.guard-wiki{margin:12px 0 4px;font-size:11px;line-height:1.6;color:#b2c2a7}.guard-wiki>b{color:#e5d7ac;margin-right:8px}.guard-note,.guard-comparison details{font-size:10px;line-height:1.6;color:#99ad93}.guard-comparison details{margin-top:10px;overflow-wrap:anywhere}.guard-comparison details p{margin:8px 0}.guard-difference{color:#ffa59b}.guard-difference>b{color:#ffa59b}.frame-workbench .measured-stats{grid-template-columns:repeat(6,minmax(0,1fr))}.frame-workbench .frame-tick.phase-rebound,.phase-legend .phase-rebound,.phase-badge.phase-rebound{background:#d19b68}
 @media(max-width:1350px){.frame-workbench .measured-stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:750px){.guard-stats{grid-template-columns:1fr}.guard-heading{align-items:flex-start;flex-direction:column}}
+
+.contact-detail,.repeat-evidence{border:1px solid var(--border);border-radius:6px;background:#141d16;padding:14px;margin:0 0 18px;font-size:12px;line-height:1.6}.contact-detail-heading{display:flex;justify-content:space-between;gap:12px}.contact-detail h2{font-size:15px;margin:0 0 12px}.contact-detail-heading>span,.contact-detail p,.repeat-evidence p{color:#a4b39d;font-size:11px}.contact-summary{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-bottom:12px}.contact-summary>strong{color:#eee0b6;font-size:18px}.contact-table-scroll{overflow-x:auto}.contact-detail table{width:100%;border-collapse:collapse;text-align:left;font-variant-numeric:tabular-nums;white-space:nowrap}.contact-detail th,.contact-detail td{padding:9px;border-bottom:1px solid var(--border)}.contact-detail td button{color:#d8d0a4;text-decoration:underline}.contact-detail details{margin-top:10px}.phase-detail{border-top:1px solid var(--border);padding-top:12px;margin-top:12px}.repeat-verified{border-color:#4c7048}.repeat-different{border-color:#aa7450}.repeat-evidence details{overflow-wrap:anywhere}
+.live-stun{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:6px 0 14px;color:#c6b8dd}.live-stun label{display:grid;gap:5px;min-width:230px}.live-stun meter{width:100%;height:14px}.live-stun>span{font-size:11px}
+.csv-actions{display:flex;gap:8px;flex-wrap:wrap}
+.frame-workbench .frame-tick.phase-pre_response,.phase-legend .phase-pre_response,.phase-badge.phase-pre_response{background:#978acb}
+.frame-workbench .frame-tick.phase-same_capture_pre_response,.phase-legend .phase-same_capture_pre_response,.phase-badge.phase-same_capture_pre_response{background:#9ba779}
+.range-readout{padding:12px 16px;border-top:1px solid var(--border);background:#172019;font-size:12px}.range-values{display:flex;gap:12px 24px;flex-wrap:wrap;font-variant-numeric:tabular-nums;color:#afbea7}.range-values b{color:#eee6d0;margin-left:6px}.range-values .range-outside b{color:#ffb19a}.range-values .range-within b{color:#cfe1a9}.range-readout p,.range-readout details{font-size:11px;line-height:1.6;color:#a8b79f;margin:8px 0 0}.range-readout summary{cursor:pointer}.recorded-grab-check{color:#e8c77b}.layer-button.distance i{background:#e5bd6e}
+/* One outcome selects both the statistics and the native image recording. */
+.outcome-picker{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 16px}.outcome-picker label{font-size:13px;font-weight:600}.outcome-picker select{min-width:150px;padding:9px 12px}.outcome-picker>span{font-size:11px;color:var(--muted)}
+.frame-workbench .measured-stats{grid-template-columns:repeat(7,minmax(0,1fr))}.recording-options{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin:16px 0;font-size:12px;background:#141d16}.recording-options>summary{cursor:pointer;color:#cbd6bd}.recording-options[open]>summary{margin-bottom:14px}.recording-options>p{font-size:11px;color:var(--muted);overflow-wrap:anywhere}.setup-measurements{margin:12px 0}.setup-measurements .contact-table-scroll{max-height:260px;overflow:auto}.setup-measurements table small{display:block;font-size:11px;opacity:.8}.empty-recording{min-height:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;background:#0b100c;padding:24px;text-align:center;gap:10px}.empty-recording strong{font-size:18px}.empty-recording p,.empty-recording>span{font-size:12px;color:var(--muted)}
+@media(max-width:1500px){.frame-workbench .measured-stats{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:750px){.frame-workbench .measured-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.outcome-picker>span{flex-basis:100%}}
+
+/* Text is rendered at browser resolution, independently of the 320×224 game image. */
+.clip-viewport{position:relative;width:100%;max-width:580px;min-width:0}
+.range-label{position:absolute;left:50%;transform:translate(-50%,-100%);display:flex;justify-content:center;gap:6px 16px;flex-wrap:wrap;width:max-content;max-width:calc(100% - 16px);padding:4px 9px;border:1px solid #b8b19666;border-radius:5px;background:#08110f80;color:#f7f5e9;font:400 14px/1.35 Arial,"Helvetica Neue",sans-serif;font-variant-numeric:tabular-nums;pointer-events:none;text-align:center;text-shadow:0 1px 2px #000,0 0 3px #000b;box-shadow:0 1px 3px #0003}
+.range-label b{font-weight:700;color:#fff2bb}.range-label small{font-size:12px;color:#d2d9ca}
+.frame-workbench .range-readout{font-size:14px;line-height:1.5;color:#dce5d7}
+.frame-workbench .range-values{color:#c0cdbb;gap:10px 22px}
+.frame-workbench .range-readout p,.frame-workbench .range-readout details{font-size:13px;color:#bdcbb5;line-height:1.6}
+.frame-workbench .range-readout summary{color:#e1e8d7}
+.frame-workbench .layer-button{font-size:12px;padding:7px 9px;color:#b9c9b4}
+.frame-workbench .stage-top,.frame-workbench .timeline-header,.frame-workbench .phase-badge{font-size:13px}
+.frame-workbench .timeline-header small,.frame-workbench .phase-legend{font-size:12px;color:#b5c5ac}
+.frame-workbench .frame-boundaries,.frame-workbench .frame-readout{font-size:13px;color:#b4c5ad}
+.frame-workbench .measured-stats .stat>span{font-size:12px;letter-spacing:.3px;color:#c0ceba}
+.frame-workbench .measured-stats .stat small{font-size:12px;line-height:1.5}
+.frame-workbench .measurement-note,.frame-workbench .comparison-panel table,.frame-workbench .comparison-panel td small,.frame-workbench .comparison-panel>a{font-size:12px;line-height:1.6}
+.frame-workbench .outcome-picker>span{font-size:12px}
+.frame-workbench .move-item small{font-family:inherit;font-size:12px;color:#adc1a1;line-height:1.4}
+.frame-workbench .contact-detail,.frame-workbench .contact-detail-heading>span,.frame-workbench .contact-detail p,.frame-workbench .contact-detail details{font-size:13px}
+.frame-workbench .contact-detail table{font:inherit;font-variant-numeric:tabular-nums}
+.frame-workbench .contact-detail th,.frame-workbench .contact-detail td{font-family:inherit;font-size:13px;line-height:1.5}
+.frame-workbench .contact-detail th{color:#c0ceba}

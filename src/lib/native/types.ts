@@ -14,6 +14,7 @@ export interface Entry {
   action_id: string; label: string; condition: string; outcome: string; recovered: boolean;
   frames: number; fps: number; clip_url: string; manifest_sha256: string;
   measured_hp_loss: number; native_missed_updates: number; metadata: Record<string, unknown>;
+  measurement_protocol?: { native_grab_whiff?: { rejected_gate_frames0: number[] }; opponent_state_policy?: string };
 }
 export interface Index {
   schema_version: number; clips: Entry[]; failures: unknown[];
