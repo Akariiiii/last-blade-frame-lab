@@ -1,17 +1,22 @@
 {
   "schemaVersion": 1,
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.3",
   "scope": "source + original procedural demo only",
   "files": [
     {
       "file": "src/app/App.tsx",
-      "bytes": 42555,
-      "sha256": "1df23aad3c60c09e331fd9b9086fc094529e0d26460a33f24d376ae94eb44154"
+      "bytes": 40468,
+      "sha256": "5bb5d5c358da67279160ce0d866ed5c99077a5ea7f9aab96531c19862c496b2c"
     },
     {
       "file": "src/app/styles.css",
-      "bytes": 31911,
-      "sha256": "da127a61f01d061725993c1ea3385adc171f31ec15d253b9be3db760510c153a"
+      "bytes": 33729,
+      "sha256": "e9f9a8d98242fbb8ece5b4d4d94b13d60e090d1830ffac03341c1819a6e0c6c8"
+    },
+    {
+      "file": "src/features/reference/CharacterPortrait.tsx",
+      "bytes": 1480,
+      "sha256": "37c5d9e47619c0d706c2d8439e255821a644a3dc282247a24f45f95a4b7ec1de"
     },
     {
       "file": "src/features/reference/DamagePreview.tsx",
@@ -29,19 +34,24 @@
       "sha256": "501f593e9422cd16fec1625f4e4a04af4990d8bd3f91f043185f1334e523eb9f"
     },
     {
+      "file": "src/features/workbench/CharacterOverview.tsx",
+      "bytes": 2349,
+      "sha256": "55ee50b5290950ee22bb4768553f21a8c85fc16ef4acaa9d814f7979c4ba1c36"
+    },
+    {
       "file": "src/features/workbench/ChargeTrials.tsx",
       "bytes": 4299,
       "sha256": "f51313f1b149d4d1e31d1148d0a0a030b2dafdccd6f64bd6757ac899d86cf1ee"
     },
     {
       "file": "src/features/workbench/FrameWorkbench.css",
-      "bytes": 14251,
-      "sha256": "d0e2e8229e30372bd86c67d71636cb5f9f804e65504d9cab80044472afe18593"
+      "bytes": 18982,
+      "sha256": "dfd0a85c5c39e6178ede4f9a991e082ea6370ade5515c5426724427f46e29b15"
     },
     {
       "file": "src/features/workbench/FrameWorkbench.tsx",
-      "bytes": 33514,
-      "sha256": "d843050a8e3f510134cf52163de8bc7df86109b5843bb5be2d06ec2a752dd908"
+      "bytes": 35018,
+      "sha256": "60133eedc31444d78ec54bdc533e4008fcee1261ac215962111f413968040af9"
     },
     {
       "file": "src/features/workbench/GuardComparison.tsx",
@@ -62,6 +72,11 @@
       "file": "src/features/workbench/LandingTrials.tsx",
       "bytes": 2818,
       "sha256": "87fd761033c228d03da14c2af171f9084b8b1a1310b7b1c1a329d537df8c8550"
+    },
+    {
+      "file": "src/features/workbench/ModeComparison.tsx",
+      "bytes": 3975,
+      "sha256": "a69e2c090d0d45f99c01f1cb75c01322400bd526a93e7f79811f3db348d0191a"
     },
     {
       "file": "src/features/workbench/MoveProperties.tsx",
@@ -147,6 +162,16 @@
       "file": "src/lib/guard.ts",
       "bytes": 1186,
       "sha256": "075878098e406a2aabda02cab7b7b67e461ac7dbe147dcec26c482c03059bfdc"
+    },
+    {
+      "file": "src/lib/modeSummary.test.ts",
+      "bytes": 2746,
+      "sha256": "ed7d0459bb5f8a2213eaf76c5d3d37b9350fedeb34431fd83368f7a68eeca97f"
+    },
+    {
+      "file": "src/lib/modeSummary.ts",
+      "bytes": 2847,
+      "sha256": "2c5e0407bf3eacdcd5f97bd534ca7f6693b34867b6102f8227edae056c0df688"
     },
     {
       "file": "src/lib/moveSelection.test.ts",
@@ -240,8 +265,8 @@
     },
     {
       "file": "src/types/reference.ts",
-      "bytes": 2849,
-      "sha256": "68be638d6fe1121a3607372a81938c749799e37681d89e8af0e07f4b4c929af6"
+      "bytes": 2980,
+      "sha256": "3356130a09ebd5a3335fb0603b25e1c94f8e3ab2094c812cc25216f3d67cfa1d"
     },
     {
       "file": "src/vite-env.d.ts",
@@ -434,6 +459,11 @@
       "sha256": "2e92821c253e89d82a6ecb3952e2a318cff80d59a2b15a8ff008cff40dfd89be"
     },
     {
+      "file": "docs/releases/v0.1.0-beta.3.md",
+      "bytes": 3686,
+      "sha256": "4eee2bc3570ece90cb3a8ca95d2fb327684cebe0362c75bc0671627f4566b966"
+    },
+    {
       "file": ".github/workflows/ci.yml",
       "bytes": 767,
       "sha256": "66b4c9dfbdadd099ab29194e70699a85c030fc1450d0bd143004d2c54c461f07"
@@ -611,12 +641,12 @@
     {
       "file": "package.json",
       "bytes": 1473,
-      "sha256": "0eb3952591b2a84f3c1b4589789ba0a9a60a9be7492fcdec7987f9ff2b8331a4"
+      "sha256": "b5a45a472d4dd0bb3faa703fccaf4d4f18a5118717507403d5ecf223081fc460"
     },
     {
       "file": "package-lock.json",
       "bytes": 62696,
-      "sha256": "914c9f5ea7796d7035c8dbfa3eb625bab383679c7fa10bde390270dfa2f94f95"
+      "sha256": "763a7b6ae3a1ae4e2fa33a3c32a61732d8e609f36db7bbf6a3ebaa20867720ac"
     },
     {
       "file": "tsconfig.json",
@@ -640,8 +670,8 @@
     },
     {
       "file": "README.md",
-      "bytes": 12499,
-      "sha256": "dee2e4c83e20b63bd93d033ab8be3b49ae8d34c9636128e27820dfd9ecf85860"
+      "bytes": 13130,
+      "sha256": "41b2c6fa6b324bb11c8b17a0a75d488163a1c4da63d35845ea19c9bb19b0a8c8"
     },
     {
       "file": "LICENSE",

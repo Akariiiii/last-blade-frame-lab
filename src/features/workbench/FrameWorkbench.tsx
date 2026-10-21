@@ -24,6 +24,10 @@ import SetupMeasurements from './SetupMeasurements';
 import MoveStats from './MoveStats';
 import {outcomeFields,outcomeValues,recordingsForOutcome,selectedRecording,type MoveOutcome}from '../../lib/moveSelection.ts';
 import {setupKey,trialsForState,type SetupRegistry}from '../../lib/setupCoverage.ts';
+import CharacterOverview from './CharacterOverview';
+import ModeComparison from './ModeComparison';
+import { moveSummary } from '../../lib/modeSummary.ts';
+import type { CharacterData, Mode } from '../../types/reference.ts';
 import StunResearch,{type StunResearchData}from './StunResearch';
 import {chargeTrialKey,type ChargeRegistry}from '../../lib/charge.ts';
 
@@ -51,7 +55,9 @@ const text = (value: Value | undefined, signed = false) => value === null || val
 const clean = (value: string) => value.replace("combo activation >", "Speed combo >").replace(/ @0x[0-9a-f]+/g, "");
 const inputText = (mask: number) => [[1,"↑"],[2,"↓"],[4,"←"],[8,"→"],[16,"A"],[32,"B"],[64,"C"],[128,"D"]].filter(([bit]) => mask & Number(bit)).map(([,label]) => label).join(" ") || "Released";
 
-export default function FrameWorkbench({ selectorId = 0, mode = "power" }: { selectorId?: number; mode?: string }) {
+export default function FrameWorkbench({ selectorId = 0, mode = "power", onModeChange, character, characterName }: {
+  selectorId?: number; mode?: Mode; onModeChange: (mode:Mode)=>void; character?: CharacterData; characterName?: string;
+}) {
   const [index,setIndex]=useState<Index | null>(null), [metrics,setMetrics]=useState<Metrics | null>(null), [profiles,setProfiles]=useState<Profiles | null>(null);
   const [setupRegistry,setSetupRegistry]=useState<SetupRegistry|null>(null),[setupError,setSetupError]=useState("");
   const [chargeRegistry,setChargeRegistry]=useState<ChargeRegistry|null>(null),[chargeError,setChargeError]=useState("");
@@ -140,17 +146,18 @@ export default function FrameWorkbench({ selectorId = 0, mode = "power" }: { sel
   },[propertyManifest,selectorId,mode]);
   useEffect(()=>{setMove("");setSelected("");setSearch("");},[selectorId]);
   useEffect(()=>{setSelected("");},[mode]);
-  const available=useMemo(()=> (index?.clips || []).filter(e=>e.selector_id===selectorId && e.mode===mode && metrics?.clips[e.id]),[index,metrics,selectorId,mode]);
+  const characterEntries=useMemo(()=>(index?.clips||[]).filter(e=>e.selector_id===selectorId&&metrics?.clips[e.id]),[index,metrics,selectorId]);
+  const available=useMemo(()=>characterEntries.filter(e=>e.mode===mode),[characterEntries,mode]);
   const moves=useMemo(()=>{
     const result=new Map<string,Entry>();
-    for(const e of available){const m=metrics!.clips[e.id];if(!m.default_visible)continue;const key=m.canonical_move;const old=result.get(key);if(!old || e.id.startsWith("ground01"))result.set(key,e);}
+    for(const e of characterEntries){const m=metrics!.clips[e.id];if(!m.default_visible)continue;const key=m.canonical_move;const old=result.get(key);if(!old || e.id.startsWith("ground01"))result.set(key,e);}
     return [...result].sort((a,b)=>categoryOrder.indexOf(categories[a[1].group] || "Other")-categoryOrder.indexOf(categories[b[1].group] || "Other") ||
       (normalOrder.includes(a[0]) && normalOrder.includes(b[0]) ? normalOrder.indexOf(a[0])-normalOrder.indexOf(b[0]) : a[0].localeCompare(b[0],undefined,{numeric:true})));
-  },[available,metrics]);
+  },[characterEntries,metrics]);
   const currentMove=moves.some(([key])=>key===move)?move:(moves.some(([key])=>key==="5A")?"5A":moves[0]?.[0] || "");
   const moveRecordings=available.filter(e=>metrics!.clips[e.id].canonical_move===currentMove);
   const outcome=(requestedOutcome==='mixed'||requestedOutcome==='unresolved')&&!moveRecordings.some(e=>metrics!.clips[e.id].values.Setup===requestedOutcome)?'hit':requestedOutcome;
-  const anchor=moveRecordings.find(e=>metrics!.clips[e.id].primary_recording)||moveRecordings[0];
+  const anchor=moveRecordings.find(e=>metrics!.clips[e.id].primary_recording)||moveRecordings[0]||moves.find(([key])=>key===currentMove)?.[1];
   const anchorMetric=anchor&&metrics?.clips[anchor.id];
   const recordings=recordingsForOutcome(moveRecordings,metrics?.clips||{},outcome,allVariants);
   const entry=selectedRecording(recordings,selected);
@@ -159,6 +166,7 @@ export default function FrameWorkbench({ selectorId = 0, mode = "power" }: { sel
   const trace=setupGroup&&(outcome==='hit'||outcome==='block'||outcome==='whiff')?trialsForState(setupGroup,outcome)[0]:undefined;
   const values=outcomeValues(measured?.values||trace?.values,outcome);
   const fields=outcomeFields(outcome);
+  const summary=useMemo(()=>moveSummary(characterEntries,metrics?.clips||{},setupRegistry,selectorId,currentMove),[characterEntries,metrics,setupRegistry,selectorId,currentMove]);
   // A stale decoded image must never survive an outcome or recording switch.
   const clip=entry&&loadedClip?.id===entry.id?loadedClip.data:null;
   const image=entry&&loadedImage?.id===entry.id?loadedImage:null;
@@ -214,17 +222,21 @@ export default function FrameWorkbench({ selectorId = 0, mode = "power" }: { sel
       <p className="coverage-note">Inputs sharing the recorded move are grouped. Conditional variants remain available.</p>
     </aside>
     <div className="workbench-content">
+      <CharacterOverview character={character} name={characterName} selector={selectorId} research={stunResearch}/>
+
       {error&&<p role="alert" className="error-banner">{error}</p>}
       {!anchor&&<p>{metrics?"No accepted recordings in this mode.":"Loading move data…"}</p>}
       {anchor&&anchorMetric&&<>
-        <div className="move-heading"><div><div className="eyebrow">{anchor.character_name} / {categories[anchor.group] || anchor.group} / {mode.toUpperCase()}</div><h1><span className="command">{clean(currentMove)}</span>{anchorMetric.values.Name!==anchor.label&&<span className="move-name">{text(anchorMetric.values.Name)}</span>}</h1><div className="heading-meta"><span className={`badge ${entry?'badge-measured':''}`}>{entry?'Recorded clip':trace?'RAM measurement · no image':'Not recorded'}</span><span>{text(measured?.values.NominalFPS ?? anchorMetric.values.NominalFPS)} nominal fps</span></div></div><div className="csv-actions"><a className="export-button" href={dataUrl("/data/extended/moves.csv")} download>Export CSV ↗</a>{metrics?.hit_events_csv_url&&<a className="export-button" href={dataUrl(metrics.hit_events_csv_url)} download>Hit events CSV ↗</a>}</div></div>
+        <div className="move-heading"><div><div className="eyebrow">{anchor.character_name} / {categories[anchor.group] || anchor.group} / ALL MODES</div><h1><span className="command">{clean(currentMove)}</span>{anchorMetric.values.Name!==anchor.label&&<span className="move-name">{text(anchorMetric.values.Name)}</span>}</h1><div className="heading-meta"><span className={`badge ${entry?'badge-measured':''}`}>{entry?'Recorded clip':trace?'RAM measurement · no image':'Not recorded'}</span><span>{text(anchorMetric.values.NominalFPS)} nominal fps</span></div></div><div className="csv-actions"><a className="export-button" href={dataUrl("/data/extended/moves.csv")} download>Export CSV ↗</a>{metrics?.hit_events_csv_url&&<a className="export-button" href={dataUrl(metrics.hit_events_csv_url)} download>Hit events CSV ↗</a>}</div></div>
         <label className="mobile-move-picker">Move<select aria-label="Move" value={currentMove} onChange={e=>{setMove(e.target.value);setSelected("");}}>{moves.map(([key])=><option key={key} value={key}>{clean(key)}</option>)}</select></label>
-        <div className="outcome-picker"><label htmlFor="move-outcome">Outcome</label><select id="move-outcome" aria-label="Outcome" value={outcome} onChange={e=>{setOutcome(e.target.value as MoveOutcome);setSelected("");setPlaying(false);setFrame(0);}}>
+        <ModeComparison rows={summary} mode={mode} outcome={outcome} onSelect={(m,o)=>{onModeChange(m);setOutcome(o);setSelected("");setPlaying(false);setFrame(0);}}/>
+        <div className="recording-heading"><h2>Recording</h2><span>Choose the mode and contact outcome for playback</span></div>
+        <div className="outcome-picker"><label htmlFor="recording-mode">Sword mode</label><select id="recording-mode" aria-label="Recording sword mode" value={mode} onChange={e=>{onModeChange(e.target.value as Mode);setSelected("");setPlaying(false);setFrame(0);}}><option value="power">Power</option><option value="speed">Speed</option><option value="ex">EX</option></select><label htmlFor="move-outcome">Outcome</label><select id="move-outcome" aria-label="Outcome" value={outcome} onChange={e=>{setOutcome(e.target.value as MoveOutcome);setSelected("");setPlaying(false);setFrame(0);}}>
           <option value="hit">Hit</option><option value="block">Block</option><option value="whiff">Whiff</option>
           {moveRecordings.some(e=>metrics!.clips[e.id].values.Setup==='mixed')&&<option value="mixed">Mixed contact</option>}
           {moveRecordings.some(e=>metrics!.clips[e.id].values.Setup==='unresolved')&&<option value="unresolved">Unresolved contact</option>}
         </select><span>{entry?'Statistics, clip and timeline use this recording.':trace?'Measured data available; image clip not recorded.':'No measurement or clip for this outcome yet.'}</span></div>
-        <MoveStats values={values} comparisons={measured?.comparison.fields} outcome={outcome}/>
+        <details className="attempt-stats"><summary>Selected recording statistics · {mode.toUpperCase()} / {outcome}</summary><MoveStats values={values} comparisons={measured?.comparison.fields} outcome={outcome}/></details>
         {entry?.measurement_protocol?.opponent_state_policy&&<p className="measurement-note">Opponent setup: {entry.measurement_protocol.opponent_state_policy}. These values belong to this recorded setup.</p>}
         {!entry&&trace&&<p className="measurement-note">{trace.repeat_equal?'Normal / 2× / 4× RAM repeats match in this fixture.':'Single-pacing RAM measurement · provisional.'} These statistics belong to an independent {outcome} trial. No image frames are available for playback.</p>}
         {entry&&measured?<>

@@ -7,6 +7,8 @@ export interface Manifest {
 export interface CharacterSummary {
   id: number; key: string; name: string; file: string; portrait?: string;
   moveCount: number; capturedMoves: number; coverage: string; combatId?: number;
+  portraitRegion?: {x:number;y:number;width:number;height:number;imageWidth:number;imageHeight:number};
+  portraitSource?: string;
 }
 export interface Box {
   slot: number; role: 'attack' | 'hurt' | 'push' | 'unknown';

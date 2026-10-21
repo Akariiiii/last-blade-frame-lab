@@ -18,7 +18,7 @@ Developers can build it with `npm run package:mac`. This writes an app and ZIP o
 
 ## Versions and release ZIPs
 
-The app displays its release version in the footer and native window title. Ready-to-run archives include it in their filenames, for example `LastBlade2-FrameLab-v0.1.0-beta.2-macOS-universal.zip` and `LastBlade2-FrameLab-v0.1.0-beta.2-Windows-x64.zip`. See [beta.2 release notes](docs/releases/v0.1.0-beta.2.md) for changes and remaining data work, and [release preparation](docs/RELEASING.md) for building both ZIPs and generating checksums/release notes. App packages contain the procedural demo; real recordings remain local and are excluded from Git and these release assets.
+The app displays its release version in the footer and native window title. Ready-to-run archives include it in their filenames, for example `LastBlade2-FrameLab-v0.1.0-beta.3-macOS-universal.zip` and `LastBlade2-FrameLab-v0.1.0-beta.3-Windows-x64.zip`. See [beta.3 release notes](docs/releases/v0.1.0-beta.3.md) for changes and remaining data work, and [release preparation](docs/RELEASING.md) for building both ZIPs and generating checksums/release notes. App packages contain the procedural demo; real recordings remain local and are excluded from Git and these release assets.
 
 ## Run
 
@@ -59,8 +59,9 @@ Extract the full Windows ZIP and open **Last Blade 2 Frame Lab.exe**. Keep the i
 
 ## Controls
 
-- Select a character, Power/Speed/EX mode and move. Narrow windows use the Move dropdown.
-- Choose **Hit / Block / Whiff** in the **Outcome** dropdown. Statistics, clip and frame timeline switch together. **Stun** appears beside Startup, Active, Recovery, Damage, Advantage and Meter.
+- Select a character from the top-right dropdown, then a move from the wider move list. Narrow windows use the Move dropdown. Available data-pack portraits appear beside the character selector and overview name, with a labelled fallback when missing. The character overview shows measured defender scales and stun capacities beside ROM attack-scale references; unavailable stats remain blank.
+- **Frame data · all modes** compares Power/Speed/EX, each with separate Hit/Block/Whiff rows. Click a row to select its recording. Missing contexts never borrow another mode or outcome. Wiki differences remain red, with comparison/source notes on hover.
+- **Recording → Sword mode / Outcome** selects the clip and timeline below. Its exact statistics and variants remain available under the recording details. The comparison table uses representative primary setups and does not change when switching playback context.
 - **Recording details and other measurements** contains input variants and independent trials; block recovery comparisons have their own expandable section. A missing image shows a clear placeholder; available RAM-only values remain labelled separately.
 - **Landing input tests**, where available, follows the selected outcome and separates physical landing, the no-input animation end, observed B/BCD buttons and new attack admission. These trials have their own CSV and frame indices; they do not replace the selected image clip's recovery.
 - Click the timeline or use **← / →** to step, **Shift + arrow** for ten frames, **Space** to play/pause and **Home / End** for boundaries. Shortcuts leave form controls alone.

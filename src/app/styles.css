@@ -1787,3 +1787,19 @@ td {
 .badge{font-size:11px;letter-spacing:.4px}
 .move-name{font-family:inherit;font-weight:400}
 .startup-error{max-width:700px;margin:60px auto;padding:24px;line-height:1.7}
+
+/* Character navigation lives in the header; reclaim the former roster column. */
+.workspace.compact-workspace{grid-template-columns:300px minmax(0,1fr)}
+.workspace.compact-workspace.extended-workspace{grid-template-columns:minmax(0,1fr)}
+.character-picker{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted)}
+.character-picker select{width:210px;font-size:14px;padding:9px 12px}
+.reference-mode{display:flex;align-items:center;gap:14px;margin-bottom:20px;color:var(--muted)}
+@media(max-width:1050px){.workspace.compact-workspace{grid-template-columns:230px minmax(0,1fr)}.topbar-center{display:none}}
+@media(max-width:750px){.workspace.compact-workspace{grid-template-columns:minmax(0,1fr)}.topbar{height:auto;min-height:80px;padding:14px 16px;gap:12px;flex-wrap:wrap}.topbar-right{flex:1;justify-content:flex-end;flex-wrap:wrap;gap:8px}.character-picker select{width:180px}.brand{min-width:230px}}
+
+.character-portrait{display:inline-flex;flex:none;width:76px;height:76px;overflow:hidden;border:1px solid #8f7a4c;border-radius:7px;background:#202a1d}
+.character-portrait svg,.character-portrait img{display:block;width:100%;height:100%;object-fit:cover;image-rendering:auto}
+.character-identity{display:flex;align-items:center;gap:16px;min-width:0}.character-identity>div{min-width:0}
+.portrait-fallback{align-items:center;justify-content:center;color:#d8c89f;font-size:24px;font-weight:600}
+.character-picker .character-portrait{width:34px;height:34px;border-radius:4px}.character-picker .portrait-fallback{font-size:13px}
+@media(max-width:600px){.character-identity{gap:10px}.character-identity .character-portrait{width:58px;height:58px}.character-identity h2{font-size:21px}.character-picker{gap:7px}.character-picker select{width:155px}.character-overview-heading>span{max-width:105px}}

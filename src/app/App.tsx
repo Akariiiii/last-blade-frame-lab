@@ -10,6 +10,7 @@ import type {
   Box,
 } from "../types/reference.ts";
 import DamagePreview from "../features/reference/DamagePreview";
+import CharacterPortrait from '../features/reference/CharacterPortrait';
 import FrameWorkbench from "../features/workbench/FrameWorkbench";
 import FrameCanvas, { type Layers } from "../features/reference/FrameCanvas";
 import {
@@ -256,7 +257,6 @@ export default function App() {
   const [moveId, setMoveId] = useState("");
   const [mode, setMode] = useState<Mode>("power");
   const [search, setSearch] = useState("");
-  const [rosterSearch, setRosterSearch] = useState("");
   const [captureId, setCaptureId] = useState("");
   const [capture, setCapture] = useState<Capture>();
   const [frameIndex, setFrameIndex] = useState(0);
@@ -270,7 +270,6 @@ export default function App() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState("");
   const [view, setView] = useState<"recorded" | "rom">("recorded");
-  const [showRoster, setShowRoster] = useState(false);
   const [showMoveBrowser, setShowMoveBrowser] = useState(false);
   const [extendedView, setExtendedView] = useState(true);
   const move = character?.moves.find((m) => m.id === moveId);
@@ -332,7 +331,6 @@ export default function App() {
     setCharacter(undefined);
     setCapture(undefined);
     setPlaying(false);
-    setShowRoster(false);
     fetchData(summary.file, { signal: abort.signal })
       .then((r) => {
         if (!r.ok) throw new Error(`Could not load ${summary.name}'s data`);
@@ -1078,86 +1076,16 @@ export default function App() {
           <button onClick={() => { setExtendedView((value) => !value); setPlaying(false); }}>
             {extendedView ? "Reference library" : "Full recordings"}
           </button>
-          <><span className="mode-caption">Sword mode</span>
-          <div className="mode-switch" aria-label="Sword mode">
-            {(["power", "speed", "ex"] as Mode[]).map((m) => (
-              <button
-                key={m}
-                className={mode === m ? "selected" : ""}
-                aria-pressed={mode === m}
-                onClick={() => setMode(m)}
-              >
-                {modeNames[m]}
-              </button>
-            ))}
-          </div></>
+          <label className="character-picker">Character
+            <CharacterPortrait character={currentRoster}/>
+            <select aria-label="Character" value={characterKey} onChange={e=>{setCharacterKey(e.target.value);setSearch("");}}>
+              {manifest?.characters.map(c=><option key={c.key} value={c.key}>{c.name}</option>)}
+            </select>
+          </label>
         </div>
       </header>
-      <div className="mobile-nav">
-        <button onClick={() => setShowRoster((v) => !v)}>
-          Characters · {currentRoster?.name || "Roster"}
-        </button>
-        {!extendedView && <button onClick={() => setShowMoveBrowser((v) => !v)}>Move list</button>}
-      </div>
-      <div className={`workspace ${extendedView ? "extended-workspace" : ""}`}>
-        <aside className={`roster ${showRoster ? "open" : ""}`}>
-          <div className="sidebar-heading">
-            <span>CHARACTERS</span>
-            <b>{manifest?.characters.length || "—"}</b>
-          </div>
-          <input
-            className="search-input"
-            placeholder="Find character…"
-            value={rosterSearch}
-            onChange={(e) => setRosterSearch(e.target.value)}
-            aria-label="Find character"
-          />
-          <nav className="character-list">
-            {manifest?.characters
-              .filter((c) =>
-                c.name.toLowerCase().includes(rosterSearch.toLowerCase()),
-              )
-              .map((c) => (
-                <button
-                  key={c.key}
-                  className={`character-item ${c.key === characterKey ? "selected" : ""}`}
-                  onClick={() => {
-                    setCharacterKey(c.key);
-                    setSearch("");
-                    setShowRoster(false);
-                  }}
-                >
-                  {c.portrait ? (
-                    <img
-                      src={c.portrait ? dataUrl(c.portrait) : undefined}
-                      alt=""
-                      onError={(e) => {
-                        e.currentTarget.style.display = "none";
-                      }}
-                    />
-                  ) : (
-                    <span className="portrait-placeholder">
-                      {c.name.slice(0, 1)}
-                    </span>
-                  )}
-                  <span>
-                    <strong>{c.name}</strong>
-                    <small>
-                      {extendedView ? "View recordings" : c.capturedMoves
-                        ? `${c.capturedMoves} recorded moves`
-                        : "ROM collision data"}
-                    </small>
-                  </span>
-                  <i className={c.capturedMoves ? "has-capture" : ""} />
-                </button>
-              ))}
-          </nav>
-          <div className="roster-footer">
-            <span className="recorded-dot" /> Recorded{" "}
-            <span className="rom-dot" /> ROM only
-            <p>Missing evidence stays visible.</p>
-          </div>
-        </aside>
+      {!extendedView && <div className="mobile-nav"><button onClick={()=>setShowMoveBrowser(v=>!v)}>Move list</button></div>}
+      <div className={`workspace compact-workspace ${extendedView ? "extended-workspace" : ""}`}>
         {!extendedView && <aside className={`move-browser ${showMoveBrowser ? "open" : ""}`}>
           <div className="sidebar-heading">
             <span>{currentRoster?.name.toUpperCase() || "MOVES"}</span>
@@ -1207,7 +1135,7 @@ export default function App() {
         <main className="main-content">
           {!extendedView && error && move && <div className="error-banner">{error}</div>}
           {!extendedView && loading && move && <div className="loading-line">{loading}…</div>}
-          {extendedView ? <FrameWorkbench selectorId={currentRoster?.id} mode={mode} /> : body}
+          {extendedView ? <FrameWorkbench selectorId={currentRoster?.id} mode={mode} onModeChange={m=>setMode(m)} character={character?.character.key===characterKey?character:undefined} characterName={currentRoster?.name} /> : <><div className="reference-mode"><span>Reference mode</span><div className="mode-switch" aria-label="Reference sword mode">{(["power","speed","ex"] as Mode[]).map(m=><button key={m} aria-pressed={mode===m} className={mode===m?"selected":""} onClick={()=>setMode(m)}>{modeNames[m]}</button>)}</div></div>{body}</>}
           <footer className="main-footer">
             <span>LAST BLADE 2 / FRAME LAB · <b aria-label="Application version">v{__APP_VERSION__}</b></span>
             <span>
